@@ -1,5 +1,6 @@
+import { useRef } from "react";
 import ScrollReveal from "./ScrollReveal";
-import { Megaphone, Palette, Target, Gem, Globe, User } from "lucide-react";
+import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import logoWhite from "@/assets/logo-white.jpg";
 import logoBlack from "@/assets/logo-black.jpg";
@@ -22,9 +23,9 @@ const services = [
 ];
 
 const additionalServices = [
-  "Professional Photo & Video Shoots",
-  "LED Display Advertising",
-  "Influencer Marketing Collaborations",
+  { title: "Professional Photo & Video Shoots", icon: Camera, desc: "High-quality photography and videography for your brand, products, and marketing campaigns." },
+  { title: "LED Display Advertising", icon: Monitor, desc: "Eye-catching LED billboard and display campaigns for maximum local visibility and impact." },
+  { title: "Influencer Marketing Collaborations", icon: Users, desc: "Strategic influencer partnerships to amplify your brand reach and build authentic connections." },
 ];
 
 const HeroSection = () => (
@@ -87,7 +88,9 @@ const HeroSection = () => (
   </section>
 );
 
-const AboutSection = () => (
+const AboutSection = () => {
+  const { theme } = useTheme();
+  return (
   <section id="about" className="py-20 md:py-32 relative">
     <div className="container mx-auto px-4 md:px-8">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
@@ -139,33 +142,42 @@ const AboutSection = () => (
         </div>
       </div>
 
-      <ScrollReveal>
-        <h3 className="text-3xl font-display text-center mb-10">Our Core Values</h3>
-      </ScrollReveal>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-20">
-        {["Trust & Transparency", "Strategy with Creativity", "Client-First Thinking", "Long-Term Partnerships", "Team Support & Coordination", "Continuous Learning & Improvement"].map((v, i) => (
-          <ScrollReveal key={v} delay={i * 80}>
-            <div className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border">
-              <div className="w-2.5 h-2.5 rounded-full bg-primary flex-shrink-0" />
-              <span className="font-body text-sm">{v}</span>
-            </div>
-          </ScrollReveal>
-        ))}
+      {/* Core Values - redesigned with logo watermark */}
+      <div className="relative mb-20 py-16 rounded-3xl bg-card border border-border overflow-hidden">
+        <img src={theme === "dark" ? logoWhite : logoBlack} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[450px] opacity-[0.04] pointer-events-none select-none" />
+        <ScrollReveal>
+          <h3 className="text-3xl font-display text-center mb-10">Our Core Values</h3>
+        </ScrollReveal>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-6 md:px-12 relative z-10">
+          {["Trust & Transparency", "Strategy with Creativity", "Client-First Thinking", "Long-Term Partnerships", "Team Support & Coordination", "Continuous Learning & Improvement"].map((v, i) => (
+            <ScrollReveal key={v} delay={i * 80}>
+              <div className="flex items-center gap-3 p-5 rounded-xl bg-background/60 backdrop-blur-sm border border-border hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+                <div className="w-3 h-3 rounded-full bg-primary flex-shrink-0 shadow-lg shadow-primary/30" />
+                <span className="font-body text-sm font-medium">{v}</span>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
       </div>
 
-      <ScrollReveal>
-        <h3 className="text-2xl font-display text-center mb-6">Industries We Serve</h3>
-        <div className="overflow-hidden py-4">
-          <div className="animate-marquee flex gap-4 w-max">
-            {["Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses", "Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses"].map((ind, i) => (
-              <span key={`${ind}-${i}`} className="px-5 py-2 rounded-full border border-border bg-card text-sm font-body whitespace-nowrap hover:border-primary hover:text-primary transition-colors">{ind}</span>
-            ))}
+      {/* Industries We Serve - redesigned with logo watermark */}
+      <div className="relative py-14 rounded-3xl bg-card border border-border overflow-hidden">
+        <img src={theme === "dark" ? logoWhite : logoBlack} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] md:w-[400px] opacity-[0.04] pointer-events-none select-none" />
+        <ScrollReveal>
+          <h3 className="text-2xl font-display text-center mb-6">Industries We Serve</h3>
+          <div className="overflow-hidden py-4">
+            <div className="animate-marquee flex gap-4 w-max">
+              {["Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses", "Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses"].map((ind, i) => (
+                <span key={`${ind}-${i}`} className="px-5 py-2 rounded-full border border-border bg-background/60 backdrop-blur-sm text-sm font-body whitespace-nowrap hover:border-primary hover:text-primary transition-colors">{ind}</span>
+              ))}
+            </div>
           </div>
-        </div>
-      </ScrollReveal>
+        </ScrollReveal>
+      </div>
     </div>
   </section>
-);
+  );
+};
 
 const ServicesSection = () => (
   <section id="services" className="py-20 md:py-32 bg-secondary/50">
@@ -192,9 +204,14 @@ const ServicesSection = () => (
         ))}
       </div>
       <ScrollReveal delay={200}>
-        <div className="flex flex-wrap justify-center gap-3">
-          {additionalServices.map((s) => (
-            <span key={s} className="px-5 py-2 rounded-full border border-primary/30 text-sm font-body text-primary">{s}</span>
+        <div className="grid md:grid-cols-3 gap-6">
+          {additionalServices.map((s, i) => (
+            <div key={s.title} className="group relative p-6 rounded-xl bg-card border border-border overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 cursor-default">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+              <s.icon className="w-10 h-10 text-primary mb-4" />
+              <h3 className="font-display text-xl mb-2 group-hover:text-primary transition-colors duration-300">{s.title}</h3>
+              <p className="text-sm text-muted-foreground font-body">{s.desc}</p>
+            </div>
           ))}
         </div>
       </ScrollReveal>
@@ -220,29 +237,29 @@ const DifferentSection = () => (
           <h2 className="text-4xl md:text-5xl font-display mt-2">What Makes Us Different</h2>
         </div>
       </ScrollReveal>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {differentiators.map((d, i) => (
           <ScrollReveal key={d.title} delay={i * 100}>
-            <div className="group relative rounded-xl overflow-hidden h-[320px] cursor-default">
+            <div className="group relative rounded-xl overflow-hidden h-[240px] cursor-default">
               <img src={d.img} alt={d.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 z-10 transition-opacity duration-300 hidden md:block md:group-hover:opacity-0">
-                <d.icon className="w-6 h-6 text-primary mb-2" />
-                <h3 className="font-display text-lg text-primary-foreground">{d.title}</h3>
+              <div className="absolute inset-0 bg-foreground/50" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 z-10 transition-opacity duration-300 hidden md:block md:group-hover:opacity-0">
+                <d.icon className="w-5 h-5 text-primary mb-1.5" />
+                <h3 className="font-display text-base text-primary-foreground">{d.title}</h3>
               </div>
               {/* Hover overlay - desktop */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hidden md:flex" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
-                <div className="w-12 h-1 bg-primary mb-4" />
-                <d.icon className="w-6 h-6 text-primary mb-2" />
-                <h3 className="font-display text-lg text-primary-foreground mb-2">{d.title}</h3>
-                <p className="text-sm text-primary-foreground/80 font-body">{d.desc}</p>
+              <div className="absolute inset-0 flex flex-col justify-end p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hidden md:flex" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
+                <div className="w-10 h-1 bg-primary mb-3" />
+                <d.icon className="w-5 h-5 text-primary mb-1.5" />
+                <h3 className="font-display text-base text-primary-foreground mb-1.5">{d.title}</h3>
+                <p className="text-xs text-primary-foreground/80 font-body">{d.desc}</p>
               </div>
               {/* Mobile - always visible */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6 md:hidden" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
-                <div className="w-12 h-1 bg-primary mb-4" />
-                <d.icon className="w-6 h-6 text-primary mb-2" />
-                <h3 className="font-display text-lg text-primary-foreground mb-2">{d.title}</h3>
-                <p className="text-sm text-primary-foreground/80 font-body">{d.desc}</p>
+              <div className="absolute inset-0 flex flex-col justify-end p-5 md:hidden" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
+                <div className="w-10 h-1 bg-primary mb-3" />
+                <d.icon className="w-5 h-5 text-primary mb-1.5" />
+                <h3 className="font-display text-base text-primary-foreground mb-1.5">{d.title}</h3>
+                <p className="text-xs text-primary-foreground/80 font-body">{d.desc}</p>
               </div>
             </div>
           </ScrollReveal>
@@ -261,54 +278,70 @@ const roles = [
   { title: "Web Developer", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600", badge: "Technical", desc: "Build modern, fast, mobile-responsive websites." },
 ];
 
-const CareersSection = () => (
-  <section id="careers" className="py-20 md:py-32 bg-secondary/50">
-    <div className="container mx-auto px-4 md:px-8">
-      <div className="grid lg:grid-cols-5 gap-12 mb-12">
-        <div className="lg:col-span-2">
-          <ScrollReveal>
-            <span className="text-primary font-body font-semibold text-sm uppercase tracking-widest">Careers</span>
-            <h2 className="text-4xl md:text-5xl font-display mt-2 mb-6">Join DigiNex Solutions</h2>
-            <p className="text-muted-foreground font-body mb-6">We are always looking for creative and ambitious individuals who want to grow in the digital marketing industry.</p>
-            <ul className="space-y-3 mb-8 font-body text-sm">
-              {["Supportive and collaborative environment", "Real learning opportunities", "Exposure to multiple industries", "Creative and challenging projects"].map((p) => (
-                <li key={p} className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" />{p}</li>
-              ))}
-            </ul>
-            <p className="text-sm text-muted-foreground font-body">Send your resume to{" "}<a href="mailto:diginexsolutionsofficial11@gmail.com" className="text-primary hover:underline">diginexsolutionsofficial11@gmail.com</a></p>
-          </ScrollReveal>
+const CareersSection = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollLeft = () => scrollRef.current?.scrollBy({ left: -320, behavior: "smooth" });
+  const scrollRight = () => scrollRef.current?.scrollBy({ left: 320, behavior: "smooth" });
+
+  return (
+  <section id="careers" className="py-20 md:py-32 relative overflow-hidden">
+    {/* Banner with black opacity */}
+    <div className="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600" alt="" className="w-full h-full object-cover" loading="lazy" />
+      <div className="absolute inset-0 bg-foreground/85" />
+    </div>
+    <div className="container mx-auto px-4 md:px-8 relative z-10">
+      <ScrollReveal>
+        <div className="text-center mb-12">
+          <span className="text-primary font-body font-semibold text-sm uppercase tracking-widest">Careers</span>
+          <h2 className="text-4xl md:text-5xl font-display mt-2 text-primary-foreground">Join DigiNex Solutions</h2>
+          <p className="text-primary-foreground/70 font-body mt-4 max-w-2xl mx-auto">We are always looking for creative and ambitious individuals who want to grow in the digital marketing industry.</p>
+          <div className="flex flex-wrap justify-center gap-4 mt-6">
+            {["Supportive environment", "Real learning", "Multiple industries", "Creative projects"].map((p) => (
+              <span key={p} className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 text-primary-foreground/80 text-sm font-body">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary" />{p}
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="lg:col-span-3 grid sm:grid-cols-2 gap-4">
-          {roles.map((r, i) => (
-            <ScrollReveal key={r.title} delay={i * 100}>
-              <div className="group relative rounded-xl overflow-hidden h-[260px] cursor-default">
-                <img src={r.img} alt={r.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4 z-10 transition-opacity duration-300 hidden md:block md:group-hover:opacity-0">
-                  <h3 className="font-display text-lg text-primary-foreground">{r.title}</h3>
-                </div>
-                {/* Hover - desktop */}
-                <div className="absolute inset-0 flex-col justify-end p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hidden md:flex" style={{ backgroundColor: "rgba(13,13,13,0.92)" }}>
-                  <div className="w-10 h-1 bg-primary mb-3" />
-                  <span className="text-xs font-body font-semibold px-2 py-0.5 rounded bg-primary text-primary-foreground w-fit mb-2">{r.badge}</span>
-                  <h3 className="font-display text-lg text-primary-foreground mb-1">{r.title}</h3>
-                  <p className="text-xs text-primary-foreground/80 font-body">{r.desc}</p>
-                </div>
-                {/* Mobile */}
-                <div className="absolute inset-0 flex flex-col justify-end p-5 md:hidden" style={{ backgroundColor: "rgba(13,13,13,0.92)" }}>
-                  <div className="w-10 h-1 bg-primary mb-3" />
-                  <span className="text-xs font-body font-semibold px-2 py-0.5 rounded bg-primary text-primary-foreground w-fit mb-2">{r.badge}</span>
-                  <h3 className="font-display text-lg text-primary-foreground mb-1">{r.title}</h3>
-                  <p className="text-xs text-primary-foreground/80 font-body">{r.desc}</p>
-                </div>
+      </ScrollReveal>
+
+      {/* Scrollable roles */}
+      <div className="relative">
+        <button onClick={scrollLeft} className="absolute -left-2 md:left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary-deep transition-colors">
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button onClick={scrollRight} className="absolute -right-2 md:right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary-deep transition-colors">
+          <ChevronRight className="w-5 h-5" />
+        </button>
+        <div ref={scrollRef} className="flex gap-5 overflow-x-auto pb-4 px-8 md:px-14 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+          {roles.map((r) => (
+            <div key={r.title} className="group relative rounded-xl overflow-hidden min-w-[280px] md:min-w-[300px] h-[320px] cursor-default flex-shrink-0 snap-center">
+              <img src={r.img} alt={r.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-foreground/20" />
+              <div className="absolute bottom-0 left-0 right-0 p-5 z-10 transition-opacity duration-300 md:group-hover:opacity-0">
+                <span className="text-xs font-body font-semibold px-2 py-0.5 rounded bg-primary text-primary-foreground w-fit mb-2 inline-block">{r.badge}</span>
+                <h3 className="font-display text-lg text-primary-foreground">{r.title}</h3>
               </div>
-            </ScrollReveal>
+              {/* Hover overlay */}
+              <div className="absolute inset-0 flex-col justify-end p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hidden md:flex" style={{ backgroundColor: "rgba(13,13,13,0.92)" }}>
+                <div className="w-10 h-1 bg-primary mb-3" />
+                <span className="text-xs font-body font-semibold px-2 py-0.5 rounded bg-primary text-primary-foreground w-fit mb-2">{r.badge}</span>
+                <h3 className="font-display text-lg text-primary-foreground mb-1">{r.title}</h3>
+                <p className="text-xs text-primary-foreground/80 font-body">{r.desc}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
+
+      <ScrollReveal delay={200}>
+        <p className="text-center text-sm text-primary-foreground/60 font-body mt-8">Send your resume to{" "}<a href="mailto:diginexsolutionsofficial11@gmail.com" className="text-primary hover:underline">diginexsolutionsofficial11@gmail.com</a></p>
+      </ScrollReveal>
     </div>
   </section>
-);
+  );
+};
 
 const ContactSection = () => (
   <section id="contact" className="py-20 md:py-32">

@@ -2,8 +2,8 @@ import { useRef } from "react";
 import ScrollReveal from "./ScrollReveal";
 import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
-import logoWhite from "@/assets/logo-white.jpg";
-import logoBlack from "@/assets/logo-black.jpg";
+import logoDark from "@/assets/logo-dark.png";
+import logoLight from "@/assets/logo-light.png";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -147,14 +147,14 @@ const AboutSection = () => {
 
       {/* Core Values - redesigned with logo watermark */}
       <div className="relative mb-20 py-16 rounded-3xl bg-card border border-border overflow-hidden">
-        <img src={theme === "dark" ? logoWhite : logoBlack} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[450px] opacity-[0.04] pointer-events-none select-none" />
+        <img src={theme === "dark" ? logoDark : logoLight} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[450px] opacity-[0.04] pointer-events-none select-none" />
         <ScrollReveal>
           <h3 className="text-3xl font-display text-center mb-10">Our Core Values</h3>
         </ScrollReveal>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-6 md:px-12 relative z-10">
           {["Trust & Transparency", "Strategy with Creativity", "Client-First Thinking", "Long-Term Partnerships", "Team Support & Coordination", "Continuous Learning & Improvement"].map((v, i) => (
             <ScrollReveal key={v} delay={i * 80}>
-              <div className="flex items-center gap-3 p-5 rounded-xl bg-background/60 backdrop-blur-sm border border-border hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+              <div className="flex items-center gap-3 p-5 rounded-xl bg-card border border-border hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
                 <div className="w-3 h-3 rounded-full bg-primary flex-shrink-0 shadow-lg shadow-primary/30" />
                 <span className="font-body text-sm font-medium">{v}</span>
               </div>
@@ -165,7 +165,7 @@ const AboutSection = () => {
 
       {/* Industries We Serve - redesigned with logo watermark */}
       <div className="relative py-14 rounded-3xl bg-card border border-border overflow-hidden">
-        <img src={theme === "dark" ? logoWhite : logoBlack} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] md:w-[400px] opacity-[0.04] pointer-events-none select-none" />
+        <img src={theme === "dark" ? logoDark : logoLight} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] md:w-[400px] opacity-[0.04] pointer-events-none select-none" />
         <ScrollReveal>
           <h3 className="text-2xl font-display text-center mb-6">Industries We Serve</h3>
           <div className="overflow-hidden py-4">
@@ -286,7 +286,7 @@ const CareersSection = () => {
     {/* Banner with black opacity */}
     <div className="absolute inset-0 z-0">
       <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600" alt="" className="w-full h-full object-cover" loading="lazy" />
-      <div className="absolute inset-0 bg-foreground/85" />
+      <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.82)" }} />
     </div>
     <div className="container mx-auto px-4 md:px-8 relative z-10">
       <ScrollReveal>
@@ -400,7 +400,7 @@ const Footer = () => {
     <footer className="py-10 border-t border-border">
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <img src={theme === "dark" ? logoWhite : logoBlack} alt="DigiNex Solutions" className="h-10 md:h-12 w-auto object-contain" />
+          <img src={theme === "dark" ? logoDark : logoLight} alt="DigiNex Solutions" className="h-10 md:h-12 w-auto object-contain" />
           <div className="flex gap-6 text-sm font-body text-muted-foreground">
             {navLinks.map((l) => (
               <a key={l.href} href={l.href} className="hover:text-primary transition-colors">{l.label}</a>

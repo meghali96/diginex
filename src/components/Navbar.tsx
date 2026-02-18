@@ -47,13 +47,13 @@ const Navbar = () => {
       }`}
       style={{ backgroundColor: scrolled ? `hsl(var(--nav-bg))` : "transparent" }}
     >
-      <div className="container mx-auto px-4 md:px-8 flex items-center justify-between h-16 md:h-20">
+      <div className="container mx-auto px-4 md:px-8 flex items-center justify-between h-18 md:h-20 lg:h-24 py-2">
         {/* Logo */}
         <a href="#home" className="flex-shrink-0">
           <img
-            src={theme === "dark" ? logoBlack : logoWhite}
+            src={theme === "dark" ? logoWhite : logoBlack}
             alt="DigiNex Solutions"
-            className="h-10 md:h-12 w-auto"
+            className="h-12 md:h-14 lg:h-16 w-auto object-contain"
           />
         </a>
 

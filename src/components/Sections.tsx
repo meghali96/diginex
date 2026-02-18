@@ -99,15 +99,18 @@ const AboutSection = () => {
             <div className="rounded-2xl overflow-hidden border-2 border-primary/30">
               <div className="relative overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800" alt="Team working together" className="w-full h-[400px] md:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                <div className="absolute inset-0 bg-foreground/80 flex items-end translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                {/* Permanent dark tint */}
+                <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.35)" }} />
+                {/* Hover overlay — always black, slides up */}
+                <div className="absolute inset-0 flex items-end translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(0,0,0,0.82)" }}>
                   <div className="p-8">
                     <div className="w-12 h-1 bg-primary mb-4" />
-                    <p className="text-primary-foreground text-xl font-display">"Your growth is our real growth."</p>
+                    <p className="text-white text-xl font-display">"Your growth is our real growth."</p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-xs font-body font-semibold shadow-lg animate-float z-10">100% Strategy-First</div>
+            <div className="absolute -top-3 -right-3 bg-primary text-white px-4 py-2 rounded-lg text-xs font-body font-semibold shadow-lg animate-float z-10">100% Strategy-First</div>
             <div className="absolute -bottom-3 -left-3 bg-card text-card-foreground px-4 py-2 rounded-lg text-xs font-body font-semibold shadow-lg border border-border animate-float z-10" style={{ animationDelay: "2.5s" }}>5+ Cities Covered</div>
           </div>
         </ScrollReveal>
@@ -397,7 +400,7 @@ const Footer = () => {
     <footer className="py-10 border-t border-border">
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <img src={theme === "dark" ? logoBlack : logoWhite} alt="DigiNex Solutions" className="h-8" />
+          <img src={theme === "dark" ? logoWhite : logoBlack} alt="DigiNex Solutions" className="h-10 md:h-12 w-auto object-contain" />
           <div className="flex gap-6 text-sm font-body text-muted-foreground">
             {navLinks.map((l) => (
               <a key={l.href} href={l.href} className="hover:text-primary transition-colors">{l.label}</a>

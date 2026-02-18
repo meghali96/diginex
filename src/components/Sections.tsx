@@ -242,24 +242,19 @@ const DifferentSection = () => (
           <ScrollReveal key={d.title} delay={i * 100}>
             <div className="group relative rounded-xl overflow-hidden h-[240px] cursor-default">
               <img src={d.img} alt={d.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
-              <div className="absolute inset-0 bg-foreground/50" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 z-10 transition-opacity duration-300 hidden md:block md:group-hover:opacity-0">
+              {/* Permanent black opacity overlay */}
+              <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.60)" }} />
+              {/* Default state: title at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 z-10 transition-opacity duration-300 group-hover:opacity-0">
                 <d.icon className="w-5 h-5 text-primary mb-1.5" />
-                <h3 className="font-display text-base text-primary-foreground">{d.title}</h3>
+                <h3 className="font-display text-base text-white">{d.title}</h3>
               </div>
-              {/* Hover overlay - desktop */}
-              <div className="absolute inset-0 flex flex-col justify-end p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hidden md:flex" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
+              {/* Hover overlay panel slides up */}
+              <div className="absolute inset-0 flex flex-col justify-end p-5 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
                 <div className="w-10 h-1 bg-primary mb-3" />
                 <d.icon className="w-5 h-5 text-primary mb-1.5" />
-                <h3 className="font-display text-base text-primary-foreground mb-1.5">{d.title}</h3>
-                <p className="text-xs text-primary-foreground/80 font-body">{d.desc}</p>
-              </div>
-              {/* Mobile - always visible */}
-              <div className="absolute inset-0 flex flex-col justify-end p-5 md:hidden" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
-                <div className="w-10 h-1 bg-primary mb-3" />
-                <d.icon className="w-5 h-5 text-primary mb-1.5" />
-                <h3 className="font-display text-base text-primary-foreground mb-1.5">{d.title}</h3>
-                <p className="text-xs text-primary-foreground/80 font-body">{d.desc}</p>
+                <h3 className="font-display text-base text-white mb-1.5">{d.title}</h3>
+                <p className="text-xs font-body" style={{ color: "rgba(255,255,255,0.75)" }}>{d.desc}</p>
               </div>
             </div>
           </ScrollReveal>
@@ -318,17 +313,19 @@ const CareersSection = () => {
           {roles.map((r) => (
             <div key={r.title} className="group relative rounded-xl overflow-hidden min-w-[280px] md:min-w-[300px] h-[320px] cursor-default flex-shrink-0 snap-center">
               <img src={r.img} alt={r.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-foreground/20" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 z-10 transition-opacity duration-300 md:group-hover:opacity-0">
-                <span className="text-xs font-body font-semibold px-2 py-0.5 rounded bg-primary text-primary-foreground w-fit mb-2 inline-block">{r.badge}</span>
-                <h3 className="font-display text-lg text-primary-foreground">{r.title}</h3>
+              {/* Permanent black overlay */}
+              <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.60)" }} />
+              {/* Default: title/badge at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 p-5 z-10 transition-opacity duration-300 group-hover:opacity-0">
+                <span className="text-xs font-body font-semibold px-2 py-0.5 rounded bg-primary text-white w-fit mb-2 inline-block">{r.badge}</span>
+                <h3 className="font-display text-lg text-white">{r.title}</h3>
               </div>
-              {/* Hover overlay */}
-              <div className="absolute inset-0 flex-col justify-end p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hidden md:flex" style={{ backgroundColor: "rgba(13,13,13,0.92)" }}>
+              {/* Hover overlay slides up */}
+              <div className="absolute inset-0 flex flex-col justify-end p-5 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(13,13,13,0.92)" }}>
                 <div className="w-10 h-1 bg-primary mb-3" />
-                <span className="text-xs font-body font-semibold px-2 py-0.5 rounded bg-primary text-primary-foreground w-fit mb-2">{r.badge}</span>
-                <h3 className="font-display text-lg text-primary-foreground mb-1">{r.title}</h3>
-                <p className="text-xs text-primary-foreground/80 font-body">{r.desc}</p>
+                <span className="text-xs font-body font-semibold px-2 py-0.5 rounded bg-primary text-white w-fit mb-2">{r.badge}</span>
+                <h3 className="font-display text-lg text-white mb-1">{r.title}</h3>
+                <p className="text-xs font-body" style={{ color: "rgba(255,255,255,0.75)" }}>{r.desc}</p>
               </div>
             </div>
           ))}

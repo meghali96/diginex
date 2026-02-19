@@ -1,9 +1,10 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import ScrollReveal from "./ScrollReveal";
-import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, ChevronLeft, ChevronRight } from "lucide-react";
+import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, ChevronLeft, ChevronRight, X, Send, Briefcase } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import logoDark from "@/assets/logo-dark.png";
 import logoLight from "@/assets/logo-light.png";
+import aboutTeam from "@/assets/about-team.jpg";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -30,9 +31,10 @@ const additionalServices = [
 
 const HeroSection = () => (
   <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-20">
-    <div className="absolute inset-0 hero-grid" />
-    <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-primary/15 blur-[100px] animate-orb" />
-    <div className="absolute bottom-1/3 right-1/4 w-48 h-48 rounded-full bg-primary/10 blur-[80px] animate-orb" style={{ animationDelay: "3s" }} />
+    {/* Ambient orbs only — no grid */}
+    <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/10 blur-[120px] animate-orb" />
+    <div className="absolute bottom-1/3 right-1/4 w-72 h-72 rounded-full bg-primary/8 blur-[100px] animate-orb" style={{ animationDelay: "3s" }} />
+    <div className="absolute top-2/3 left-1/3 w-48 h-48 rounded-full bg-primary/6 blur-[80px] animate-orb" style={{ animationDelay: "6s" }} />
 
     <div className="container mx-auto px-4 md:px-8 relative z-10 py-12 md:py-0">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -91,94 +93,92 @@ const HeroSection = () => (
 const AboutSection = () => {
   const { theme } = useTheme();
   return (
-  <section id="about" className="py-20 md:py-32 relative">
-    <div className="container mx-auto px-4 md:px-8">
-      <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
-        <ScrollReveal>
-          <div className="relative group">
-            <div className="rounded-2xl overflow-hidden border-2 border-primary/30">
-              <div className="relative overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800" alt="Team working together" className="w-full h-[400px] md:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                {/* Permanent dark tint */}
-                <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.35)" }} />
-                {/* Hover overlay — always black, slides up */}
-                <div className="absolute inset-0 flex items-end translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(0,0,0,0.82)" }}>
-                  <div className="p-8">
-                    <div className="w-12 h-1 bg-primary mb-4" />
-                    <p className="text-white text-xl font-display">"Your growth is our real growth."</p>
+    <section id="about" className="py-20 md:py-32 relative">
+      <div className="container mx-auto px-4 md:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
+          <ScrollReveal>
+            <div className="relative group">
+              <div className="rounded-2xl overflow-hidden border-2 border-primary/30">
+                <div className="relative overflow-hidden">
+                  <img src={aboutTeam} alt="DigiNex Solutions team working together" className="w-full h-[400px] md:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                  <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.25)" }} />
+                  <div className="absolute inset-0 flex items-end translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(0,0,0,0.82)" }}>
+                    <div className="p-8">
+                      <div className="w-12 h-1 bg-primary mb-4" />
+                      <p className="text-white text-xl font-display">"Your growth is our real growth."</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="absolute -top-3 -right-3 bg-primary text-white px-4 py-2 rounded-lg text-xs font-body font-semibold shadow-lg animate-float z-10">100% Strategy-First</div>
-            <div className="absolute -bottom-3 -left-3 bg-card text-card-foreground px-4 py-2 rounded-lg text-xs font-body font-semibold shadow-lg border border-border animate-float z-10" style={{ animationDelay: "2.5s" }}>5+ Cities Covered</div>
-          </div>
-        </ScrollReveal>
-
-        <div>
-          <ScrollReveal>
-            <span className="text-primary font-body font-semibold text-sm uppercase tracking-widest">Who We Are</span>
-            <h2 className="text-4xl md:text-5xl font-display mt-2 mb-6">Built for Real Business Growth</h2>
-          </ScrollReveal>
-          <ScrollReveal delay={150}>
-            <p className="text-muted-foreground font-body mb-6 leading-relaxed">
-              DigiNex Solutions is a strategy-driven digital marketing agency focused on meaningful and measurable growth. We work as your extended marketing team, understanding your goals, analyzing your industry, and executing strategies that attract the right audience.
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={250}>
-            <blockquote className="border-l-4 border-primary pl-4 italic text-foreground/80 font-body mb-8">
-              "We don't treat clients as accounts — we treat them as partners."
-            </blockquote>
-          </ScrollReveal>
-          <ScrollReveal delay={350}>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 rounded-xl bg-card border border-border">
-                <h4 className="font-display text-lg text-primary mb-1">Our Mission</h4>
-                <p className="text-xs text-muted-foreground font-body">To serve every client with equal dedication, delivering strategies that create sustainable, long-term growth.</p>
-              </div>
-              <div className="p-4 rounded-xl bg-card border border-border">
-                <h4 className="font-display text-lg text-primary mb-1">Our Vision</h4>
-                <p className="text-xs text-muted-foreground font-body">To become a trusted digital growth partner known for quality over quantity and impactful results.</p>
-              </div>
+              <div className="absolute -top-3 -right-3 bg-primary text-white px-4 py-2 rounded-lg text-xs font-body font-semibold shadow-lg animate-float z-10">100% Strategy-First</div>
+              <div className="absolute -bottom-3 -left-3 bg-card text-card-foreground px-4 py-2 rounded-lg text-xs font-body font-semibold shadow-lg border border-border animate-float z-10" style={{ animationDelay: "2.5s" }}>5+ Cities Covered</div>
             </div>
           </ScrollReveal>
-        </div>
-      </div>
 
-      {/* Core Values - redesigned with logo watermark */}
-      <div className="relative mb-20 py-16 rounded-3xl bg-card border border-border overflow-hidden">
-        <img src={theme === "dark" ? logoDark : logoLight} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[450px] opacity-[0.04] pointer-events-none select-none" />
-        <ScrollReveal>
-          <h3 className="text-3xl font-display text-center mb-10">Our Core Values</h3>
-        </ScrollReveal>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-6 md:px-12 relative z-10">
-          {["Trust & Transparency", "Strategy with Creativity", "Client-First Thinking", "Long-Term Partnerships", "Team Support & Coordination", "Continuous Learning & Improvement"].map((v, i) => (
-            <ScrollReveal key={v} delay={i * 80}>
-              <div className="flex items-center gap-3 p-5 rounded-xl bg-card border border-border hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
-                <div className="w-3 h-3 rounded-full bg-primary flex-shrink-0 shadow-lg shadow-primary/30" />
-                <span className="font-body text-sm font-medium">{v}</span>
+          <div>
+            <ScrollReveal>
+              <span className="text-primary font-body font-semibold text-sm uppercase tracking-widest">Who We Are</span>
+              <h2 className="text-4xl md:text-5xl font-display mt-2 mb-6">Built for Real Business Growth</h2>
+            </ScrollReveal>
+            <ScrollReveal delay={150}>
+              <p className="text-muted-foreground font-body mb-6 leading-relaxed">
+                DigiNex Solutions is a strategy-driven digital marketing agency focused on meaningful and measurable growth. We work as your extended marketing team, understanding your goals, analyzing your industry, and executing strategies that attract the right audience.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={250}>
+              <blockquote className="border-l-4 border-primary pl-4 italic text-foreground/80 font-body mb-8">
+                "We don't treat clients as accounts — we treat them as partners."
+              </blockquote>
+            </ScrollReveal>
+            <ScrollReveal delay={350}>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-card border border-border">
+                  <h4 className="font-display text-lg text-primary mb-1">Our Mission</h4>
+                  <p className="text-xs text-muted-foreground font-body">To serve every client with equal dedication, delivering strategies that create sustainable, long-term growth.</p>
+                </div>
+                <div className="p-4 rounded-xl bg-card border border-border">
+                  <h4 className="font-display text-lg text-primary mb-1">Our Vision</h4>
+                  <p className="text-xs text-muted-foreground font-body">To become a trusted digital growth partner known for quality over quantity and impactful results.</p>
+                </div>
               </div>
             </ScrollReveal>
-          ))}
+          </div>
+        </div>
+
+        {/* Core Values */}
+        <div className="relative mb-20 py-16 rounded-3xl bg-card border border-border overflow-hidden">
+          <img src={theme === "dark" ? logoDark : logoLight} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[450px] opacity-[0.04] pointer-events-none select-none" />
+          <ScrollReveal>
+            <h3 className="text-3xl font-display text-center mb-10">Our Core Values</h3>
+          </ScrollReveal>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-6 md:px-12 relative z-10">
+            {["Trust & Transparency", "Strategy with Creativity", "Client-First Thinking", "Long-Term Partnerships", "Team Support & Coordination", "Continuous Learning & Improvement"].map((v, i) => (
+              <ScrollReveal key={v} delay={i * 80}>
+                <div className="flex items-center gap-3 p-5 rounded-xl bg-card border border-border hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+                  <div className="w-3 h-3 rounded-full bg-primary flex-shrink-0 shadow-lg shadow-primary/30" />
+                  <span className="font-body text-sm font-medium">{v}</span>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+
+        {/* Industries We Serve */}
+        <div className="relative py-14 rounded-3xl bg-card border border-border overflow-hidden">
+          <img src={theme === "dark" ? logoDark : logoLight} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] md:w-[400px] opacity-[0.04] pointer-events-none select-none" />
+          <ScrollReveal>
+            <h3 className="text-2xl font-display text-center mb-6">Industries We Serve</h3>
+            <div className="overflow-hidden py-4">
+              <div className="animate-marquee flex gap-4 w-max">
+                {["Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses", "Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses"].map((ind, i) => (
+                  <span key={`${ind}-${i}`} className="px-5 py-2 rounded-full border border-border bg-background/60 backdrop-blur-sm text-sm font-body whitespace-nowrap hover:border-primary hover:text-primary transition-colors">{ind}</span>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
-
-      {/* Industries We Serve - redesigned with logo watermark */}
-      <div className="relative py-14 rounded-3xl bg-card border border-border overflow-hidden">
-        <img src={theme === "dark" ? logoDark : logoLight} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] md:w-[400px] opacity-[0.04] pointer-events-none select-none" />
-        <ScrollReveal>
-          <h3 className="text-2xl font-display text-center mb-6">Industries We Serve</h3>
-          <div className="overflow-hidden py-4">
-            <div className="animate-marquee flex gap-4 w-max">
-              {["Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses", "Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses"].map((ind, i) => (
-                <span key={`${ind}-${i}`} className="px-5 py-2 rounded-full border border-border bg-background/60 backdrop-blur-sm text-sm font-body whitespace-nowrap hover:border-primary hover:text-primary transition-colors">{ind}</span>
-              ))}
-            </div>
-          </div>
-        </ScrollReveal>
-      </div>
-    </div>
-  </section>
+    </section>
   );
 };
 
@@ -208,7 +208,7 @@ const ServicesSection = () => (
       </div>
       <ScrollReveal delay={200}>
         <div className="grid md:grid-cols-3 gap-6">
-          {additionalServices.map((s, i) => (
+          {additionalServices.map((s) => (
             <div key={s.title} className="group relative p-6 rounded-xl bg-card border border-border overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 cursor-default">
               <div className="absolute top-0 left-0 right-0 h-1 bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               <s.icon className="w-10 h-10 text-primary mb-4" />
@@ -245,14 +245,11 @@ const DifferentSection = () => (
           <ScrollReveal key={d.title} delay={i * 100}>
             <div className="group relative rounded-xl overflow-hidden h-[240px] cursor-default">
               <img src={d.img} alt={d.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
-              {/* Permanent black opacity overlay */}
               <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.60)" }} />
-              {/* Default state: title at bottom */}
               <div className="absolute bottom-0 left-0 right-0 p-4 z-10 transition-opacity duration-300 group-hover:opacity-0">
                 <d.icon className="w-5 h-5 text-primary mb-1.5" />
                 <h3 className="font-display text-base text-white">{d.title}</h3>
               </div>
-              {/* Hover overlay panel slides up */}
               <div className="absolute inset-0 flex flex-col justify-end p-5 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
                 <div className="w-10 h-1 bg-primary mb-3" />
                 <d.icon className="w-5 h-5 text-primary mb-1.5" />
@@ -267,79 +264,425 @@ const DifferentSection = () => (
   </section>
 );
 
-const roles = [
-  { title: "Graphic Designer", img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600", badge: "Creative", desc: "Craft stunning visuals, brand assets, and marketing creatives." },
-  { title: "Video Editor", img: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600", badge: "Creative", desc: "Edit reels, brand videos, and high-impact motion content." },
-  { title: "Social Media Executive", img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600", badge: "Marketing", desc: "Plan, post, and grow brand presence across Instagram & Facebook." },
-  { title: "Ads Specialist", img: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600", badge: "Performance", desc: "Run and optimize high-converting Meta ad campaigns." },
-  { title: "Content Writer", img: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600", badge: "Content", desc: "Write compelling copy for social media, websites, and ads." },
-  { title: "Web Developer", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600", badge: "Technical", desc: "Build modern, fast, mobile-responsive websites." },
+// ─── Careers ───────────────────────────────────────────────────────────────
+
+interface Role {
+  title: string;
+  img: string;
+  badge: string;
+  desc: string;
+  responsibilities: string[];
+  requirements: string[];
+}
+
+const roles: Role[] = [
+  {
+    title: "Graphic Designer",
+    img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600",
+    badge: "Creative",
+    desc: "Craft stunning visuals, brand assets, and marketing creatives that stop the scroll and build brand identity.",
+    responsibilities: [
+      "Design social media posts, reels thumbnails & carousels",
+      "Create brand identity assets — logos, colour palettes, typography",
+      "Produce brochures, flyers, and offline marketing materials",
+      "Collaborate with the content and strategy team on campaigns",
+    ],
+    requirements: [
+      "Proficiency in Adobe Photoshop, Illustrator & Canva",
+      "Strong portfolio showcasing creative and brand work",
+      "Eye for detail, colour theory, and layout composition",
+      "Ability to work on tight deadlines in a fast-paced environment",
+    ],
+  },
+  {
+    title: "Video Editor",
+    img: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600",
+    badge: "Creative",
+    desc: "Edit reels, brand videos, and high-impact motion content that engage and convert audiences.",
+    responsibilities: [
+      "Edit short-form reels and long-form brand videos",
+      "Add motion graphics, captions, and sound design",
+      "Maintain brand consistency across all video outputs",
+      "Coordinate with the creative team on visual direction",
+    ],
+    requirements: [
+      "Experience with Premiere Pro, After Effects, or CapCut",
+      "Strong sense of pacing, storytelling, and music sync",
+      "Portfolio of edited reels or promotional videos",
+      "Ability to deliver multiple edits per week",
+    ],
+  },
+  {
+    title: "Social Media Executive",
+    img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600",
+    badge: "Marketing",
+    desc: "Plan, post, and grow brand presence across Instagram & Facebook for multiple clients.",
+    responsibilities: [
+      "Manage posting calendars for multiple client accounts",
+      "Write captions, schedule posts, and handle community engagement",
+      "Monitor analytics and prepare weekly performance reports",
+      "Stay updated on social media trends and algorithm changes",
+    ],
+    requirements: [
+      "Understanding of Instagram and Facebook algorithms",
+      "Excellent written communication and copywriting skills",
+      "Experience with scheduling tools (Buffer, Later, etc.)",
+      "Analytical mindset with attention to performance metrics",
+    ],
+  },
+  {
+    title: "Ads Specialist",
+    img: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600",
+    badge: "Performance",
+    desc: "Run and optimize high-converting Meta ad campaigns focused on lead generation and sales.",
+    responsibilities: [
+      "Set up, manage, and optimize Meta (Facebook & Instagram) ad campaigns",
+      "Conduct audience research and build targeted ad sets",
+      "Prepare weekly ROI reports for client campaigns",
+      "A/B test creatives, copies, and landing pages",
+    ],
+    requirements: [
+      "Hands-on experience with Meta Ads Manager",
+      "Understanding of pixel setup, retargeting, and lookalike audiences",
+      "Analytical skills to interpret ad performance data",
+      "Knowledge of lead generation and conversion funnels",
+    ],
+  },
+  {
+    title: "Content Writer",
+    img: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600",
+    badge: "Content",
+    desc: "Write compelling copy for social media, websites, and ads that converts readers into customers.",
+    responsibilities: [
+      "Write engaging captions, blog posts, and ad copy",
+      "Develop website content and landing page copy",
+      "Research industry trends to create relevant content",
+      "Collaborate with designers on content-visual alignment",
+    ],
+    requirements: [
+      "Excellent written English with strong storytelling ability",
+      "Understanding of SEO best practices",
+      "Experience writing for social media, blogs, or marketing",
+      "Ability to adapt tone and voice for different brands",
+    ],
+  },
+  {
+    title: "Web Developer",
+    img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600",
+    badge: "Technical",
+    desc: "Build modern, fast, mobile-responsive websites that drive credibility and conversions.",
+    responsibilities: [
+      "Design and develop responsive websites for clients",
+      "Integrate forms, analytics, and third-party tools",
+      "Optimize site speed and SEO technical foundations",
+      "Maintain and update existing client websites",
+    ],
+    requirements: [
+      "Proficiency in HTML, CSS, JavaScript, and React or WordPress",
+      "Experience deploying and maintaining web projects",
+      "Understanding of responsive design and cross-browser compatibility",
+      "Portfolio of developed websites or web apps",
+    ],
+  },
 ];
+
+// Badge colors
+const badgeColors: Record<string, string> = {
+  Creative: "bg-purple-500",
+  Marketing: "bg-blue-500",
+  Performance: "bg-orange-500",
+  Content: "bg-green-500",
+  Technical: "bg-cyan-500",
+};
+
+interface ApplyModalProps {
+  role: Role | null;
+  onClose: () => void;
+}
+
+const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", portfolio: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+
+  if (!role) return null;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Build mailto link with form data
+    const subject = encodeURIComponent(`Job Application — ${role.title}`);
+    const body = encodeURIComponent(
+      `Role: ${role.title}\n\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nPortfolio/LinkedIn: ${form.portfolio}\n\nAbout Me:\n${form.message}`
+    );
+    window.open(`mailto:diginexsolutionsofficial11@gmail.com?subject=${subject}&body=${body}`, "_blank");
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={onClose}>
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+
+      {/* Modal */}
+      <div
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-card border border-border shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="sticky top-0 z-10 flex items-center justify-between p-6 border-b border-border bg-card rounded-t-2xl">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Briefcase className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground font-body uppercase tracking-widest">Apply for</p>
+              <h3 className="font-display text-xl">{role.title}</h3>
+            </div>
+          </div>
+          <button onClick={onClose} className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center hover:bg-muted transition-colors">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        <div className="p-6">
+          {submitted ? (
+            <div className="text-center py-10">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Send className="w-7 h-7 text-primary" />
+              </div>
+              <h4 className="font-display text-2xl mb-2">Application Sent!</h4>
+              <p className="text-muted-foreground font-body text-sm">Your application for <strong>{role.title}</strong> has been prepared. We'll be in touch soon.</p>
+              <button onClick={onClose} className="mt-6 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold text-sm hover:bg-primary-deep transition-colors">
+                Close
+              </button>
+            </div>
+          ) : (
+            <>
+              {/* Role summary */}
+              <div className="mb-6 p-4 rounded-xl bg-secondary/60 border border-border">
+                <p className="text-sm text-muted-foreground font-body mb-4">{role.desc}</p>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-xs font-body font-semibold text-primary uppercase tracking-widest mb-2">Responsibilities</p>
+                    <ul className="space-y-1">
+                      {role.responsibilities.map((r) => (
+                        <li key={r} className="flex items-start gap-2 text-xs font-body text-muted-foreground">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                          {r}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="text-xs font-body font-semibold text-primary uppercase tracking-widest mb-2">Requirements</p>
+                    <ul className="space-y-1">
+                      {role.requirements.map((r) => (
+                        <li key={r} className="flex items-start gap-2 text-xs font-body text-muted-foreground">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                          {r}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Application form */}
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Full Name *</label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      maxLength={100}
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="Your full name"
+                      className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Email Address *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      maxLength={255}
+                      value={form.email}
+                      onChange={handleChange}
+                      placeholder="your@email.com"
+                      className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                    />
+                  </div>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Phone Number</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      maxLength={15}
+                      value={form.phone}
+                      onChange={handleChange}
+                      placeholder="+91 9999999999"
+                      className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Portfolio / LinkedIn URL</label>
+                    <input
+                      type="url"
+                      name="portfolio"
+                      maxLength={500}
+                      value={form.portfolio}
+                      onChange={handleChange}
+                      placeholder="https://your-portfolio.com"
+                      className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Tell us about yourself *</label>
+                  <textarea
+                    name="message"
+                    required
+                    maxLength={1000}
+                    rows={4}
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Why do you want to join DigiNex? Share your experience and what makes you a great fit..."
+                    className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
+                  />
+                  <p className="text-xs text-muted-foreground font-body mt-1 text-right">{form.message.length}/1000</p>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center gap-2"
+                >
+                  <Send className="w-4 h-4" />
+                  Submit Application
+                </button>
+                <p className="text-xs text-center text-muted-foreground font-body">
+                  This will open your email client pre-filled with your application details.
+                </p>
+              </form>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const CareersSection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+
   const scrollLeft = () => scrollRef.current?.scrollBy({ left: -320, behavior: "smooth" });
   const scrollRight = () => scrollRef.current?.scrollBy({ left: 320, behavior: "smooth" });
 
   return (
-  <section id="careers" className="py-20 md:py-32 relative overflow-hidden">
-    {/* Banner with black opacity */}
-    <div className="absolute inset-0 z-0">
-      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600" alt="" className="w-full h-full object-cover" loading="lazy" />
-      <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.82)" }} />
-    </div>
-    <div className="container mx-auto px-4 md:px-8 relative z-10">
-      <ScrollReveal>
-        <div className="text-center mb-12">
-          <span className="text-primary font-body font-semibold text-sm uppercase tracking-widest">Careers</span>
-          <h2 className="text-4xl md:text-5xl font-display mt-2 text-primary-foreground">Join DigiNex Solutions</h2>
-          <p className="text-primary-foreground/70 font-body mt-4 max-w-2xl mx-auto">We are always looking for creative and ambitious individuals who want to grow in the digital marketing industry.</p>
-          <div className="flex flex-wrap justify-center gap-4 mt-6">
-            {["Supportive environment", "Real learning", "Multiple industries", "Creative projects"].map((p) => (
-              <span key={p} className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 text-primary-foreground/80 text-sm font-body">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary" />{p}
-              </span>
-            ))}
-          </div>
+    <>
+      <section id="careers" className="py-20 md:py-32 relative overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 z-0">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600" alt="" className="w-full h-full object-cover" loading="lazy" />
+          <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.82)" }} />
         </div>
-      </ScrollReveal>
 
-      {/* Scrollable roles */}
-      <div className="relative">
-        <button onClick={scrollLeft} className="absolute -left-2 md:left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary-deep transition-colors">
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button onClick={scrollRight} className="absolute -right-2 md:right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary-deep transition-colors">
-          <ChevronRight className="w-5 h-5" />
-        </button>
-        <div ref={scrollRef} className="flex gap-5 overflow-x-auto pb-4 px-8 md:px-14 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-          {roles.map((r) => (
-            <div key={r.title} className="group relative rounded-xl overflow-hidden min-w-[280px] md:min-w-[300px] h-[320px] cursor-default flex-shrink-0 snap-center">
-              <img src={r.img} alt={r.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
-              {/* Permanent black overlay */}
-              <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.60)" }} />
-              {/* Default: title/badge at bottom */}
-              <div className="absolute bottom-0 left-0 right-0 p-5 z-10 transition-opacity duration-300 group-hover:opacity-0">
-                <span className="text-xs font-body font-semibold px-2 py-0.5 rounded bg-primary text-white w-fit mb-2 inline-block">{r.badge}</span>
-                <h3 className="font-display text-lg text-white">{r.title}</h3>
-              </div>
-              {/* Hover overlay slides up */}
-              <div className="absolute inset-0 flex flex-col justify-end p-5 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(13,13,13,0.92)" }}>
-                <div className="w-10 h-1 bg-primary mb-3" />
-                <span className="text-xs font-body font-semibold px-2 py-0.5 rounded bg-primary text-white w-fit mb-2">{r.badge}</span>
-                <h3 className="font-display text-lg text-white mb-1">{r.title}</h3>
-                <p className="text-xs font-body" style={{ color: "rgba(255,255,255,0.75)" }}>{r.desc}</p>
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          {/* Header */}
+          <ScrollReveal>
+            <div className="text-center mb-14">
+              <span className="text-primary font-body font-semibold text-sm uppercase tracking-widest">Careers</span>
+              <h2 className="text-4xl md:text-5xl font-display mt-2 text-white">Join DigiNex Solutions</h2>
+              <p className="text-white/60 font-body mt-4 max-w-2xl mx-auto text-sm md:text-base">
+                We are always looking for creative and ambitious individuals who want to grow in the digital marketing industry.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 mt-6">
+                {["Supportive environment", "Real learning", "Multiple industries", "Creative projects"].map((p) => (
+                  <span key={p} className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 text-white/70 text-xs font-body">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />{p}
+                  </span>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </ScrollReveal>
 
-      <ScrollReveal delay={200}>
-        <p className="text-center text-sm text-primary-foreground/60 font-body mt-8">Send your resume to{" "}<a href="mailto:diginexsolutionsofficial11@gmail.com" className="text-primary hover:underline">diginexsolutionsofficial11@gmail.com</a></p>
-      </ScrollReveal>
-    </div>
-  </section>
+          {/* Click hint */}
+          <ScrollReveal>
+            <p className="text-center text-white/40 text-xs font-body mb-6 flex items-center justify-center gap-2">
+              <span className="w-4 h-px bg-white/30" />
+              Click on any role to apply
+              <span className="w-4 h-px bg-white/30" />
+            </p>
+          </ScrollReveal>
+
+          {/* Scrollable role cards */}
+          <div className="relative">
+            <button onClick={scrollLeft} className="absolute -left-2 md:left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary-deep transition-colors">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button onClick={scrollRight} className="absolute -right-2 md:right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary-deep transition-colors">
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            <div
+              ref={scrollRef}
+              className="flex gap-5 overflow-x-auto pb-4 px-8 md:px-14 snap-x snap-mandatory"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              {roles.map((r) => (
+                <button
+                  key={r.title}
+                  onClick={() => setSelectedRole(r)}
+                  className="group relative rounded-xl overflow-hidden min-w-[280px] md:min-w-[300px] h-[340px] flex-shrink-0 snap-center cursor-pointer text-left focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-black"
+                >
+                  <img src={r.img} alt={r.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
+                  <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.55)" }} />
+
+                  {/* Default: title/badge at bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 z-10 transition-all duration-300 group-hover:opacity-0">
+                    <span className={`text-xs font-body font-semibold px-2.5 py-0.5 rounded ${badgeColors[r.badge] ?? "bg-primary"} text-white w-fit mb-2 inline-block`}>{r.badge}</span>
+                    <h3 className="font-display text-lg text-white">{r.title}</h3>
+                  </div>
+
+                  {/* Hover overlay slides up */}
+                  <div className="absolute inset-0 flex flex-col justify-end p-5 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(13,13,13,0.95)" }}>
+                    <div className="w-10 h-1 bg-primary mb-3" />
+                    <span className={`text-xs font-body font-semibold px-2.5 py-0.5 rounded ${badgeColors[r.badge] ?? "bg-primary"} text-white w-fit mb-2`}>{r.badge}</span>
+                    <h3 className="font-display text-lg text-white mb-1.5">{r.title}</h3>
+                    <p className="text-xs font-body mb-4" style={{ color: "rgba(255,255,255,0.70)" }}>{r.desc}</p>
+                    <div className="flex items-center gap-2 text-primary text-xs font-body font-semibold">
+                      <Briefcase className="w-3.5 h-3.5" />
+                      Click to Apply →
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom note */}
+          <ScrollReveal delay={200}>
+            <p className="text-center text-sm text-white/40 font-body mt-10">
+              Or send your resume directly to{" "}
+              <a href="mailto:diginexsolutionsofficial11@gmail.com" className="text-primary hover:underline">
+                diginexsolutionsofficial11@gmail.com
+              </a>
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Application Modal */}
+      {selectedRole && <ApplyModal role={selectedRole} onClose={() => setSelectedRole(null)} />}
+    </>
   );
 };
 

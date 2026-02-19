@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import BackToTop from "@/components/BackToTop";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import {
   HeroSection,
   AboutSection,
@@ -25,6 +26,7 @@ const Index = () => {
       </main>
       <Footer />
       <BackToTop />
+      <WhatsAppButton />
     </ThemeProvider>
   );
 };

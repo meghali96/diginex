@@ -45,7 +45,7 @@ const HeroSection = () => (
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <ScrollReveal>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display leading-[0.95] mb-6">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display leading-[0.95] mb-6 mt-12 md:mt-16 lg:mt-20">
               Next-Gen{" "}
               <span className="text-stroke-orange">Strategies</span>
               <br />
@@ -59,8 +59,8 @@ const HeroSection = () => (
           </ScrollReveal>
           <ScrollReveal delay={300}>
             <div className="flex flex-wrap gap-4 mb-10">
-              <a href="#contact" className="px-7 py-3.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1">
-                Book Free Consultation
+              <a href="/DigiNex_Brochure.pdf" download className="px-7 py-3.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1">
+                Download Brochure
               </a>
               <a href="#services" className="px-7 py-3.5 rounded-lg border-2 border-primary text-primary font-body font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:-translate-y-1">
                 View Our Services

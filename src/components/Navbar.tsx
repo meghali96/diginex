@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import logoDark from "@/assets/logo-dark.png";
-import logoLight from "@/assets/logo-light.png";
+import logoLight from "@/assets/logo-black-new.png";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -53,7 +53,7 @@ const Navbar = () => {
           <img
             src={theme === "dark" ? logoDark : logoLight}
             alt="DigiNex Solutions"
-            className="h-14 md:h-16 lg:h-20 w-auto object-contain"
+            className="h-10 md:h-12 lg:h-14 w-auto object-contain"
           />
         </a>
 

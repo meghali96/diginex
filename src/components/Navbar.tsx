@@ -53,8 +53,7 @@ const Navbar = () => {
           <img
             src={logoLight}
             alt="DigiNex Solutions"
-            className="h-14 md:h-16 lg:h-20 w-auto max-w-[200px] md:max-w-[240px] lg:max-w-[280px] object-contain"
-            style={theme === "dark" ? { filter: "brightness(2.5)" } : undefined}
+            className="h-10 md:h-12 lg:h-14 w-auto object-contain"
           />
         </a>
 

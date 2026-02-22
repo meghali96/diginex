@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ScrollReveal from "./ScrollReveal";
-import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, ChevronLeft, ChevronRight, X, Send, Briefcase, Upload } from "lucide-react";
+import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, X, Send, Briefcase, Upload } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import logoLight from "@/assets/logo-light.png";
 import aboutTeam from "@/assets/about-team.jpg";
@@ -298,7 +298,7 @@ const DifferentSection = () => (
 
 interface Role {
   title: string;
-  img: string;
+  icon: typeof Briefcase;
   badge: string;
   desc: string;
   responsibilities: string[];
@@ -308,7 +308,7 @@ interface Role {
 const roles: Role[] = [
   {
     title: "Graphic Designer",
-    img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600",
+    icon: Palette,
     badge: "Creative",
     desc: "Craft stunning visuals, brand assets, and marketing creatives that stop the scroll and build brand identity.",
     responsibilities: [
@@ -326,7 +326,7 @@ const roles: Role[] = [
   },
   {
     title: "Video Editor",
-    img: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600",
+    icon: Camera,
     badge: "Creative",
     desc: "Edit reels, brand videos, and high-impact motion content that engage and convert audiences.",
     responsibilities: [
@@ -344,7 +344,7 @@ const roles: Role[] = [
   },
   {
     title: "Social Media Executive",
-    img: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600",
+    icon: Megaphone,
     badge: "Marketing",
     desc: "Plan, post, and grow brand presence across Instagram & Facebook for multiple clients.",
     responsibilities: [
@@ -362,7 +362,7 @@ const roles: Role[] = [
   },
   {
     title: "Ads Specialist",
-    img: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=600",
+    icon: Target,
     badge: "Performance",
     desc: "Run and optimize high-converting Meta ad campaigns focused on lead generation and sales.",
     responsibilities: [
@@ -380,7 +380,7 @@ const roles: Role[] = [
   },
   {
     title: "Content Writer",
-    img: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=600",
+    icon: Gem,
     badge: "Content",
     desc: "Write compelling copy for social media, websites, and ads that converts readers into customers.",
     responsibilities: [
@@ -398,7 +398,7 @@ const roles: Role[] = [
   },
   {
     title: "Web Developer",
-    img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600",
+    icon: Monitor,
     badge: "Technical",
     desc: "Build modern, fast, mobile-responsive websites that drive credibility and conversions.",
     responsibilities: [
@@ -417,11 +417,11 @@ const roles: Role[] = [
 ];
 
 const badgeColors: Record<string, string> = {
-  Creative: "bg-purple-500",
-  Marketing: "bg-blue-500",
-  Performance: "bg-orange-500",
-  Content: "bg-green-500",
-  Technical: "bg-cyan-500",
+  Creative: "bg-purple-500/10 text-purple-500 border-purple-500/20",
+  Marketing: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+  Performance: "bg-primary/10 text-primary border-primary/20",
+  Content: "bg-green-500/10 text-green-500 border-green-500/20",
+  Technical: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
 };
 
 interface ApplyModalProps {
@@ -576,32 +576,22 @@ const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
 };
 
 const CareersSection = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
-
-  const scrollLeft = () => scrollRef.current?.scrollBy({ left: -320, behavior: "smooth" });
-  const scrollRight = () => scrollRef.current?.scrollBy({ left: 320, behavior: "smooth" });
 
   return (
     <>
-      <section id="careers" className="py-20 md:py-32 relative overflow-hidden">
-        {/* Background — updated attractive image */}
-        <div className="absolute inset-0 z-0">
-          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1600" alt="" className="w-full h-full object-cover" loading="lazy" />
-          <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.82)" }} />
-        </div>
-
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
+      <section id="careers" className="py-20 md:py-32 bg-secondary/50">
+        <div className="container mx-auto px-4 md:px-8">
           <ScrollReveal>
             <div className="text-center mb-14">
               <span className="text-primary font-body font-semibold text-sm uppercase tracking-widest">Careers</span>
-              <h2 className="text-4xl md:text-5xl font-display mt-2 text-white">Join DigiNex Solutions</h2>
-              <p className="text-white/60 font-body mt-4 max-w-2xl mx-auto text-sm md:text-base">
+              <h2 className="text-4xl md:text-5xl font-display mt-2">Join DigiNex Solutions</h2>
+              <p className="text-muted-foreground font-body mt-4 max-w-2xl mx-auto text-sm md:text-base">
                 We are always looking for creative and ambitious individuals who want to grow in the digital marketing industry.
               </p>
               <div className="flex flex-wrap justify-center gap-3 mt-6">
                 {["Supportive environment", "Real learning", "Multiple industries", "Creative projects"].map((p) => (
-                  <span key={p} className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 text-white/70 text-xs font-body">
+                  <span key={p} className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-border text-muted-foreground text-xs font-body">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />{p}
                   </span>
                 ))}
@@ -609,58 +599,34 @@ const CareersSection = () => {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal>
-            <p className="text-center text-white/40 text-xs font-body mb-6 flex items-center justify-center gap-2">
-              <span className="w-4 h-px bg-white/30" />
-              Click on any role to apply
-              <span className="w-4 h-px bg-white/30" />
-            </p>
-          </ScrollReveal>
-
-          <div className="relative">
-            <button onClick={scrollLeft} className="absolute -left-2 md:left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary-deep transition-colors">
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button onClick={scrollRight} className="absolute -right-2 md:right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary-deep transition-colors">
-              <ChevronRight className="w-5 h-5" />
-            </button>
-
-            <div
-              ref={scrollRef}
-              className="flex gap-5 overflow-x-auto pb-4 px-8 md:px-14 snap-x snap-mandatory"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-            >
-              {roles.map((r) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {roles.map((r, i) => (
+              <ScrollReveal key={r.title} delay={i * 80}>
                 <button
-                  key={r.title}
                   onClick={() => setSelectedRole(r)}
-                  className="group relative rounded-xl overflow-hidden min-w-[280px] md:min-w-[300px] h-[340px] flex-shrink-0 snap-center cursor-pointer text-left focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-black"
+                  className="group w-full text-left p-6 rounded-xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/10 focus:outline-none focus:ring-2 focus:ring-primary"
                 >
-                  <img src={r.img} alt={r.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
-                  <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.55)" }} />
-
-                  <div className="absolute bottom-0 left-0 right-0 p-5 z-10 transition-all duration-300 group-hover:opacity-0">
-                    <span className={`text-xs font-body font-semibold px-2.5 py-0.5 rounded ${badgeColors[r.badge] ?? "bg-primary"} text-white w-fit mb-2 inline-block`}>{r.badge}</span>
-                    <h3 className="font-display text-lg text-white">{r.title}</h3>
-                  </div>
-
-                  <div className="absolute inset-0 flex flex-col justify-end p-5 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(13,13,13,0.95)" }}>
-                    <div className="w-10 h-1 bg-primary mb-3" />
-                    <span className={`text-xs font-body font-semibold px-2.5 py-0.5 rounded ${badgeColors[r.badge] ?? "bg-primary"} text-white w-fit mb-2`}>{r.badge}</span>
-                    <h3 className="font-display text-lg text-white mb-1.5">{r.title}</h3>
-                    <p className="text-xs font-body mb-4" style={{ color: "rgba(255,255,255,0.70)" }}>{r.desc}</p>
-                    <div className="flex items-center gap-2 text-primary text-xs font-body font-semibold">
-                      <Briefcase className="w-3.5 h-3.5" />
-                      Click to Apply →
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <r.icon className="w-6 h-6 text-primary" />
                     </div>
+                    <span className={`text-xs font-body font-semibold px-3 py-1 rounded-full border ${badgeColors[r.badge] ?? "bg-primary/10 text-primary border-primary/20"}`}>
+                      {r.badge}
+                    </span>
+                  </div>
+                  <h3 className="font-display text-xl mb-2">{r.title}</h3>
+                  <p className="text-sm text-muted-foreground font-body line-clamp-2 mb-4">{r.desc}</p>
+                  <div className="flex items-center gap-2 text-primary text-xs font-body font-semibold group-hover:gap-3 transition-all">
+                    <Briefcase className="w-3.5 h-3.5" />
+                    Apply Now →
                   </div>
                 </button>
-              ))}
-            </div>
+              </ScrollReveal>
+            ))}
           </div>
 
           <ScrollReveal delay={200}>
-            <p className="text-center text-sm text-white/40 font-body mt-10">
+            <p className="text-center text-sm text-muted-foreground font-body mt-10">
               Or send your resume directly to{" "}
               <a href="mailto:diginexsolutionsofficial11@gmail.com" className="text-primary hover:underline">
                 diginexsolutionsofficial11@gmail.com

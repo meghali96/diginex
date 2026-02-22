@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import ScrollReveal from "./ScrollReveal";
 import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, X, Send, Briefcase, Upload } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
@@ -645,6 +645,71 @@ const CareersSection = () => {
   );
 };
 
+/* ─── Multi Service Select ─────────────────────────────────────────────── */
+
+const MultiServiceSelect = ({ services }: { services: { num: string; title: string }[] }) => {
+  const [selected, setSelected] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const toggle = (title: string) => {
+    setSelected((prev) =>
+      prev.includes(title) ? prev.filter((s) => s !== title) : [...prev, title]
+    );
+  };
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body text-left focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all flex items-center justify-between"
+      >
+        <span className={selected.length ? "text-foreground" : "text-muted-foreground"}>
+          {selected.length ? `${selected.length} service${selected.length > 1 ? "s" : ""} selected` : "Select Services Required"}
+        </span>
+        <svg className={`w-4 h-4 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+      </button>
+      {open && (
+        <div className="absolute z-20 mt-1 w-full rounded-lg bg-card border border-border shadow-lg max-h-60 overflow-y-auto">
+          {services.map((s) => (
+            <label
+              key={s.num}
+              className="flex items-center gap-3 px-4 py-2.5 hover:bg-secondary/60 cursor-pointer transition-colors"
+            >
+              <input
+                type="checkbox"
+                checked={selected.includes(s.title)}
+                onChange={() => toggle(s.title)}
+                className="accent-primary w-4 h-4 rounded"
+              />
+              <span className="text-sm font-body text-foreground">{s.title}</span>
+            </label>
+          ))}
+        </div>
+      )}
+      {selected.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mt-2">
+          {selected.map((s) => (
+            <span key={s} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-body font-medium">
+              {s}
+              <button type="button" onClick={() => toggle(s)} className="hover:text-primary-deep"><X size={12} /></button>
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 /* ─── Contact ──────────────────────────────────────────────────────────── */
 
 const ContactSection = () => (
@@ -683,10 +748,7 @@ const ContactSection = () => (
               <input type="tel" placeholder="Phone Number" className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
             </div>
             <input type="text" placeholder="Business Type" className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
-            <select className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all">
-              <option value="">Select Service Required</option>
-              {services.map((s) => <option key={s.num} value={s.title}>{s.title}</option>)}
-            </select>
+            <MultiServiceSelect services={services} />
             <textarea placeholder="Your Message" rows={4} className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none" />
             <button type="submit" className="w-full py-3.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-lg hover:shadow-primary/25">
               Send Message

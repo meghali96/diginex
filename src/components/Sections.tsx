@@ -69,7 +69,7 @@ const HeroSection = () => (
           </ScrollReveal>
           <ScrollReveal delay={450}>
             <div className="flex gap-8 md:gap-12">
-              {[{ num: "6", label: "Core Services" }, { num: "8+", label: "Industries" }].map((s) => (
+              {[{ num: "6+", label: "Core Services" }, { num: "8+", label: "Industries" }].map((s) => (
                 <div key={s.label}>
                   <div className="text-3xl md:text-4xl font-display text-primary">{s.num}</div>
                   <div className="text-sm text-muted-foreground font-body">{s.label}</div>

@@ -53,7 +53,7 @@ const Navbar = () => {
           <img
             src={logoLight}
             alt="DigiNex Solutions"
-            className="h-10 md:h-12 lg:h-14 w-auto object-contain"
+            className="h-7 md:h-8 lg:h-10 w-auto object-contain"
           />
         </a>
 

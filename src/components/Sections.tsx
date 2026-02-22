@@ -635,10 +635,6 @@ const CareersSection = () => {
               <a href="mailto:hiringdiginexsolutions@gmail.com" className="text-primary hover:underline">
                 hiringdiginexsolutions@gmail.com
               </a>
-              {" "}or{" "}
-              <a href="mailto:diginexsolutionsofficial11@gmail.com" className="text-primary hover:underline">
-                diginexsolutionsofficial11@gmail.com
-              </a>
             </p>
           </ScrollReveal>
         </div>

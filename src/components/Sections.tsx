@@ -5,6 +5,7 @@ import { useTheme } from "./ThemeProvider";
 import logoLight from "@/assets/logo-light.png";
 import aboutTeam from "@/assets/about-team.jpg";
 import heroBanner from "@/assets/hero-banner.jpg";
+import heroBannerLight from "@/assets/hero-banner-light.jpg";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -31,10 +32,12 @@ const additionalServices = [
 
 /* ─── Hero ─────────────────────────────────────────────────────────────── */
 
-const HeroSection = () => (
+const HeroSection = () => {
+  const { theme } = useTheme();
+  return (
   <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-16">
     {/* Hero banner background */}
-    <img src={heroBanner} alt="" className="absolute inset-0 w-full h-full object-cover" />
+    <img src={theme === "dark" ? heroBanner : heroBannerLight} alt="" className="absolute inset-0 w-full h-full object-cover" />
     <div className="absolute inset-0 bg-background/80 dark:bg-background/70" />
 
     {/* Ambient orbs */}
@@ -93,7 +96,8 @@ const HeroSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 /* ─── About ────────────────────────────────────────────────────────────── */
 

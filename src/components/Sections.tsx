@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import ScrollReveal from "./ScrollReveal";
-import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, ChevronLeft, ChevronRight, X, Send, Briefcase } from "lucide-react";
+import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, ChevronLeft, ChevronRight, X, Send, Briefcase, Upload } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
-import logoDark from "@/assets/logo-dark.png";
 import logoLight from "@/assets/logo-light.png";
 import aboutTeam from "@/assets/about-team.jpg";
+import heroBanner from "@/assets/hero-banner.jpg";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -29,12 +29,17 @@ const additionalServices = [
   { title: "Influencer Marketing Collaborations", icon: Users, desc: "Strategic influencer partnerships to amplify your brand reach and build authentic connections." },
 ];
 
+/* ─── Hero ─────────────────────────────────────────────────────────────── */
+
 const HeroSection = () => (
-  <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-20">
-    {/* Ambient orbs only — no grid */}
+  <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-16">
+    {/* Hero banner background */}
+    <img src={heroBanner} alt="" className="absolute inset-0 w-full h-full object-cover" />
+    <div className="absolute inset-0 bg-background/80 dark:bg-background/70" />
+
+    {/* Ambient orbs */}
     <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/10 blur-[120px] animate-orb" />
     <div className="absolute bottom-1/3 right-1/4 w-72 h-72 rounded-full bg-primary/8 blur-[100px] animate-orb" style={{ animationDelay: "3s" }} />
-    <div className="absolute top-2/3 left-1/3 w-48 h-48 rounded-full bg-primary/6 blur-[80px] animate-orb" style={{ animationDelay: "6s" }} />
 
     <div className="container mx-auto px-4 md:px-8 relative z-10 py-12 md:py-0">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -64,7 +69,7 @@ const HeroSection = () => (
           </ScrollReveal>
           <ScrollReveal delay={450}>
             <div className="flex gap-8 md:gap-12">
-              {[{ num: "5+", label: "Cities" }, { num: "6", label: "Core Services" }, { num: "8+", label: "Industries" }].map((s) => (
+              {[{ num: "6", label: "Core Services" }, { num: "8+", label: "Industries" }].map((s) => (
                 <div key={s.label}>
                   <div className="text-3xl md:text-4xl font-display text-primary">{s.num}</div>
                   <div className="text-sm text-muted-foreground font-body">{s.label}</div>
@@ -90,8 +95,9 @@ const HeroSection = () => (
   </section>
 );
 
+/* ─── About ────────────────────────────────────────────────────────────── */
+
 const AboutSection = () => {
-  const { theme } = useTheme();
   return (
     <section id="about" className="py-20 md:py-32 relative">
       <div className="container mx-auto px-4 md:px-8">
@@ -110,8 +116,7 @@ const AboutSection = () => {
                   </div>
                 </div>
               </div>
-              <div className="absolute -top-3 -right-3 bg-primary text-white px-4 py-2 rounded-lg text-xs font-body font-semibold shadow-lg animate-float z-10">100% Strategy-First</div>
-              <div className="absolute -bottom-3 -left-3 bg-card text-card-foreground px-4 py-2 rounded-lg text-xs font-body font-semibold shadow-lg border border-border animate-float z-10" style={{ animationDelay: "2.5s" }}>5+ Cities Covered</div>
+              {/* Removed 100% Strategy-First and 5+ Cities Covered tags */}
             </div>
           </ScrollReveal>
 
@@ -145,9 +150,8 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Core Values */}
+        {/* Core Values — no logo background */}
         <div className="relative mb-20 py-16 rounded-3xl bg-card border border-border overflow-hidden">
-          <img src={theme === "dark" ? logoDark : logoLight} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[450px] opacity-[0.04] pointer-events-none select-none" />
           <ScrollReveal>
             <h3 className="text-3xl font-display text-center mb-10">Our Core Values</h3>
           </ScrollReveal>
@@ -163,9 +167,8 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Industries We Serve */}
+        {/* Industries We Serve — no logo background */}
         <div className="relative py-14 rounded-3xl bg-card border border-border overflow-hidden">
-          <img src={theme === "dark" ? logoDark : logoLight} alt="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] md:w-[400px] opacity-[0.04] pointer-events-none select-none" />
           <ScrollReveal>
             <h3 className="text-2xl font-display text-center mb-6">Industries We Serve</h3>
             <div className="overflow-hidden py-4">
@@ -182,6 +185,42 @@ const AboutSection = () => {
   );
 };
 
+/* ─── Services with flip cards ─────────────────────────────────────────── */
+
+const ServiceCard = ({ s, children }: { s: typeof services[0] | typeof additionalServices[0]; children?: React.ReactNode }) => {
+  const icon = s.icon;
+  const Icon = icon;
+  const num = "num" in s ? (s as typeof services[0]).num : undefined;
+
+  return (
+    <div className="group [perspective:1000px] h-[260px] cursor-default">
+      <div className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+        {/* Front */}
+        <div className="absolute inset-0 rounded-xl bg-card border border-border p-6 [backface-visibility:hidden] overflow-hidden">
+          {/* Animated border glow on all 4 sides */}
+          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            style={{ boxShadow: "inset 0 0 0 2px hsl(27 76% 57%)" }} />
+          <div className="flex items-start gap-4">
+            {num && <span className="text-4xl font-display text-muted-foreground/30">{num}</span>}
+            <Icon className="w-8 h-8 text-primary mt-1 flex-shrink-0" />
+          </div>
+          <h3 className="font-display text-xl mt-4 mb-2">{s.title}</h3>
+          <p className="text-sm text-muted-foreground font-body line-clamp-3">{s.desc}</p>
+        </div>
+
+        {/* Back */}
+        <div className="absolute inset-0 rounded-xl bg-primary p-6 [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col justify-center items-center text-center overflow-hidden">
+          {/* Animated border on all 4 sides */}
+          <div className="absolute inset-0 rounded-xl" style={{ boxShadow: "inset 0 0 0 3px hsl(20 55% 41%)" }} />
+          <Icon className="w-10 h-10 text-primary-foreground mb-4" />
+          <h3 className="font-display text-xl text-primary-foreground mb-2">{s.title}</h3>
+          <p className="text-sm text-primary-foreground/80 font-body">{s.desc}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const ServicesSection = () => (
   <section id="services" className="py-20 md:py-32 bg-secondary/50">
     <div className="container mx-auto px-4 md:px-8">
@@ -194,33 +233,24 @@ const ServicesSection = () => (
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
         {services.map((s, i) => (
           <ScrollReveal key={s.num} delay={i * 100}>
-            <div className="group relative p-6 rounded-xl bg-card border border-border overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 cursor-default">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              <div className="flex items-start gap-4">
-                <span className="text-4xl font-display text-muted-foreground/30">{s.num}</span>
-                <s.icon className="w-8 h-8 text-primary mt-1 flex-shrink-0" />
-              </div>
-              <h3 className="font-display text-xl mt-4 mb-2 group-hover:text-primary transition-colors duration-300">{s.title}</h3>
-              <p className="text-sm text-muted-foreground font-body">{s.desc}</p>
-            </div>
+            <ServiceCard s={s} />
           </ScrollReveal>
         ))}
       </div>
       <ScrollReveal delay={200}>
         <div className="grid md:grid-cols-3 gap-6">
           {additionalServices.map((s) => (
-            <div key={s.title} className="group relative p-6 rounded-xl bg-card border border-border overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 cursor-default">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              <s.icon className="w-10 h-10 text-primary mb-4" />
-              <h3 className="font-display text-xl mb-2 group-hover:text-primary transition-colors duration-300">{s.title}</h3>
-              <p className="text-sm text-muted-foreground font-body">{s.desc}</p>
-            </div>
+            <ScrollReveal key={s.title}>
+              <ServiceCard s={s} />
+            </ScrollReveal>
           ))}
         </div>
       </ScrollReveal>
     </div>
   </section>
 );
+
+/* ─── What Makes Us Different ──────────────────────────────────────────── */
 
 const differentiators = [
   { title: "Strategy-First Approach", img: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600", desc: "Every campaign starts with deep research and a clear goal — no guesswork, no wasted budget.", icon: Target },
@@ -264,7 +294,7 @@ const DifferentSection = () => (
   </section>
 );
 
-// ─── Careers ───────────────────────────────────────────────────────────────
+/* ─── Careers ──────────────────────────────────────────────────────────── */
 
 interface Role {
   title: string;
@@ -278,7 +308,7 @@ interface Role {
 const roles: Role[] = [
   {
     title: "Graphic Designer",
-    img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600",
+    img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600",
     badge: "Creative",
     desc: "Craft stunning visuals, brand assets, and marketing creatives that stop the scroll and build brand identity.",
     responsibilities: [
@@ -296,7 +326,7 @@ const roles: Role[] = [
   },
   {
     title: "Video Editor",
-    img: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600",
+    img: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600",
     badge: "Creative",
     desc: "Edit reels, brand videos, and high-impact motion content that engage and convert audiences.",
     responsibilities: [
@@ -314,7 +344,7 @@ const roles: Role[] = [
   },
   {
     title: "Social Media Executive",
-    img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600",
+    img: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600",
     badge: "Marketing",
     desc: "Plan, post, and grow brand presence across Instagram & Facebook for multiple clients.",
     responsibilities: [
@@ -332,7 +362,7 @@ const roles: Role[] = [
   },
   {
     title: "Ads Specialist",
-    img: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600",
+    img: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=600",
     badge: "Performance",
     desc: "Run and optimize high-converting Meta ad campaigns focused on lead generation and sales.",
     responsibilities: [
@@ -350,7 +380,7 @@ const roles: Role[] = [
   },
   {
     title: "Content Writer",
-    img: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600",
+    img: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=600",
     badge: "Content",
     desc: "Write compelling copy for social media, websites, and ads that converts readers into customers.",
     responsibilities: [
@@ -368,7 +398,7 @@ const roles: Role[] = [
   },
   {
     title: "Web Developer",
-    img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600",
+    img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600",
     badge: "Technical",
     desc: "Build modern, fast, mobile-responsive websites that drive credibility and conversions.",
     responsibilities: [
@@ -386,7 +416,6 @@ const roles: Role[] = [
   },
 ];
 
-// Badge colors
 const badgeColors: Record<string, string> = {
   Creative: "bg-purple-500",
   Marketing: "bg-blue-500",
@@ -402,6 +431,7 @@ interface ApplyModalProps {
 
 const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", portfolio: "", message: "" });
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
   if (!role) return null;
@@ -410,12 +440,17 @@ const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   };
 
+  const handleResumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setResumeFile(e.target.files[0]);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Build mailto link with form data
     const subject = encodeURIComponent(`Job Application — ${role.title}`);
     const body = encodeURIComponent(
-      `Role: ${role.title}\n\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nPortfolio/LinkedIn: ${form.portfolio}\n\nAbout Me:\n${form.message}`
+      `Role: ${role.title}\n\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nPortfolio/LinkedIn: ${form.portfolio}\nResume: ${resumeFile ? resumeFile.name : "Not attached"}\n\nAbout Me:\n${form.message}`
     );
     window.open(`mailto:diginexsolutionsofficial11@gmail.com?subject=${subject}&body=${body}`, "_blank");
     setSubmitted(true);
@@ -423,15 +458,11 @@ const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={onClose}>
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
-
-      {/* Modal */}
       <div
         className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-card border border-border shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between p-6 border-b border-border bg-card rounded-t-2xl">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -461,7 +492,6 @@ const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
             </div>
           ) : (
             <>
-              {/* Role summary */}
               <div className="mb-6 p-4 rounded-xl bg-secondary/60 border border-border">
                 <p className="text-sm text-muted-foreground font-body mb-4">{role.desc}</p>
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -490,80 +520,46 @@ const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
                 </div>
               </div>
 
-              {/* Application form */}
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Full Name *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      maxLength={100}
-                      value={form.name}
-                      onChange={handleChange}
-                      placeholder="Your full name"
-                      className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                    />
+                    <input type="text" name="name" required maxLength={100} value={form.name} onChange={handleChange} placeholder="Your full name" className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
                   </div>
                   <div>
                     <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Email Address *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      maxLength={255}
-                      value={form.email}
-                      onChange={handleChange}
-                      placeholder="your@email.com"
-                      className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                    />
+                    <input type="email" name="email" required maxLength={255} value={form.email} onChange={handleChange} placeholder="your@email.com" className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Phone Number</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      maxLength={15}
-                      value={form.phone}
-                      onChange={handleChange}
-                      placeholder="+91 9999999999"
-                      className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                    />
+                    <input type="tel" name="phone" maxLength={15} value={form.phone} onChange={handleChange} placeholder="+91 9999999999" className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
                   </div>
                   <div>
                     <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Portfolio / LinkedIn URL</label>
-                    <input
-                      type="url"
-                      name="portfolio"
-                      maxLength={500}
-                      value={form.portfolio}
-                      onChange={handleChange}
-                      placeholder="https://your-portfolio.com"
-                      className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                    />
+                    <input type="url" name="portfolio" maxLength={500} value={form.portfolio} onChange={handleChange} placeholder="https://your-portfolio.com" className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
                   </div>
                 </div>
+
+                {/* Resume Upload */}
+                <div>
+                  <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Upload Resume</label>
+                  <label className="flex items-center gap-3 w-full px-4 py-3 rounded-lg bg-secondary border-2 border-dashed border-border hover:border-primary/50 cursor-pointer transition-all">
+                    <Upload className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-sm font-body text-muted-foreground truncate">
+                      {resumeFile ? resumeFile.name : "Click to upload your resume (PDF, DOC)"}
+                    </span>
+                    <input type="file" accept=".pdf,.doc,.docx" onChange={handleResumeChange} className="hidden" />
+                  </label>
+                </div>
+
                 <div>
                   <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Tell us about yourself *</label>
-                  <textarea
-                    name="message"
-                    required
-                    maxLength={1000}
-                    rows={4}
-                    value={form.message}
-                    onChange={handleChange}
-                    placeholder="Why do you want to join DigiNex? Share your experience and what makes you a great fit..."
-                    className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
-                  />
+                  <textarea name="message" required maxLength={1000} rows={4} value={form.message} onChange={handleChange} placeholder="Why do you want to join DigiNex? Share your experience and what makes you a great fit..." className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none" />
                   <p className="text-xs text-muted-foreground font-body mt-1 text-right">{form.message.length}/1000</p>
                 </div>
-                <button
-                  type="submit"
-                  className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center gap-2"
-                >
+                <button type="submit" className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center gap-2">
                   <Send className="w-4 h-4" />
                   Submit Application
                 </button>
@@ -589,14 +585,13 @@ const CareersSection = () => {
   return (
     <>
       <section id="careers" className="py-20 md:py-32 relative overflow-hidden">
-        {/* Background */}
+        {/* Background — updated attractive image */}
         <div className="absolute inset-0 z-0">
-          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600" alt="" className="w-full h-full object-cover" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1600" alt="" className="w-full h-full object-cover" loading="lazy" />
           <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.82)" }} />
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          {/* Header */}
           <ScrollReveal>
             <div className="text-center mb-14">
               <span className="text-primary font-body font-semibold text-sm uppercase tracking-widest">Careers</span>
@@ -614,7 +609,6 @@ const CareersSection = () => {
             </div>
           </ScrollReveal>
 
-          {/* Click hint */}
           <ScrollReveal>
             <p className="text-center text-white/40 text-xs font-body mb-6 flex items-center justify-center gap-2">
               <span className="w-4 h-px bg-white/30" />
@@ -623,7 +617,6 @@ const CareersSection = () => {
             </p>
           </ScrollReveal>
 
-          {/* Scrollable role cards */}
           <div className="relative">
             <button onClick={scrollLeft} className="absolute -left-2 md:left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary-deep transition-colors">
               <ChevronLeft className="w-5 h-5" />
@@ -646,13 +639,11 @@ const CareersSection = () => {
                   <img src={r.img} alt={r.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
                   <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.55)" }} />
 
-                  {/* Default: title/badge at bottom */}
                   <div className="absolute bottom-0 left-0 right-0 p-5 z-10 transition-all duration-300 group-hover:opacity-0">
                     <span className={`text-xs font-body font-semibold px-2.5 py-0.5 rounded ${badgeColors[r.badge] ?? "bg-primary"} text-white w-fit mb-2 inline-block`}>{r.badge}</span>
                     <h3 className="font-display text-lg text-white">{r.title}</h3>
                   </div>
 
-                  {/* Hover overlay slides up */}
                   <div className="absolute inset-0 flex flex-col justify-end p-5 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(13,13,13,0.95)" }}>
                     <div className="w-10 h-1 bg-primary mb-3" />
                     <span className={`text-xs font-body font-semibold px-2.5 py-0.5 rounded ${badgeColors[r.badge] ?? "bg-primary"} text-white w-fit mb-2`}>{r.badge}</span>
@@ -668,7 +659,6 @@ const CareersSection = () => {
             </div>
           </div>
 
-          {/* Bottom note */}
           <ScrollReveal delay={200}>
             <p className="text-center text-sm text-white/40 font-body mt-10">
               Or send your resume directly to{" "}
@@ -680,11 +670,12 @@ const CareersSection = () => {
         </div>
       </section>
 
-      {/* Application Modal */}
       {selectedRole && <ApplyModal role={selectedRole} onClose={() => setSelectedRole(null)} />}
     </>
   );
 };
+
+/* ─── Contact ──────────────────────────────────────────────────────────── */
 
 const ContactSection = () => (
   <section id="contact" className="py-20 md:py-32">
@@ -737,13 +728,14 @@ const ContactSection = () => (
   </section>
 );
 
+/* ─── Footer ───────────────────────────────────────────────────────────── */
+
 const Footer = () => {
-  const { theme } = useTheme();
   return (
     <footer className="py-10 border-t border-border">
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <img src={theme === "dark" ? logoDark : logoLight} alt="DigiNex Solutions" className="h-10 md:h-12 w-auto object-contain" />
+          <img src={logoLight} alt="DigiNex Solutions" className="h-10 md:h-12 w-auto object-contain" />
           <div className="flex gap-6 text-sm font-body text-muted-foreground">
             {navLinks.map((l) => (
               <a key={l.href} href={l.href} className="hover:text-primary transition-colors">{l.label}</a>

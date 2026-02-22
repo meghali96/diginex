@@ -47,7 +47,7 @@ const Navbar = () => {
       }`}
       style={{ backgroundColor: scrolled ? `hsl(var(--nav-bg))` : "transparent" }}
     >
-      <div className="container mx-auto px-4 md:px-8 flex items-center justify-between h-20 md:h-24 lg:h-28 py-2">
+      <div className="container mx-auto px-4 md:px-8 flex items-center justify-between h-16 md:h-18 lg:h-20 py-1">
         {/* Logo */}
         <a href="#home" className="flex-shrink-0">
           <img

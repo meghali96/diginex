@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Bebas Neue"', 'sans-serif'],
+        display: ['"Poppins"', 'sans-serif'],
         body: ['"Poppins"', 'sans-serif'],
       },
       colors: {

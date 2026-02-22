@@ -456,7 +456,7 @@ const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
     const body = encodeURIComponent(
       `Role: ${role.title}\n\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nPortfolio/LinkedIn: ${form.portfolio}\nResume: ${resumeFile ? resumeFile.name : "Not attached"}\n\nAbout Me:\n${form.message}`
     );
-    window.open(`mailto:diginexsolutionsofficial11@gmail.com?subject=${subject}&body=${body}`, "_blank");
+    window.open(`mailto:hiringdiginexsolutions@gmail.com?subject=${subject}&body=${body}`, "_blank");
     setSubmitted(true);
   };
 
@@ -631,7 +631,11 @@ const CareersSection = () => {
 
           <ScrollReveal delay={200}>
             <p className="text-center text-sm text-muted-foreground font-body mt-10">
-              Or send your resume directly to{" "}
+              Send your resume to{" "}
+              <a href="mailto:hiringdiginexsolutions@gmail.com" className="text-primary hover:underline">
+                hiringdiginexsolutions@gmail.com
+              </a>
+              {" "}or{" "}
               <a href="mailto:diginexsolutionsofficial11@gmail.com" className="text-primary hover:underline">
                 diginexsolutionsofficial11@gmail.com
               </a>

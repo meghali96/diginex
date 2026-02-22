@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
-import logoDark from "@/assets/logo-dark.png";
+import logoDark from "@/assets/logo-black-new.png";
 import logoLight from "@/assets/logo-black-new.png";
 
 const navLinks = [

@@ -51,9 +51,10 @@ const Navbar = () => {
         {/* Logo */}
         <a href="#home" className="flex-shrink-0">
           <img
-            src={theme === "dark" ? logoDark : logoLight}
+            src={logoLight}
             alt="DigiNex Solutions"
             className="h-10 md:h-12 lg:h-14 w-auto object-contain"
+            style={theme === "dark" ? { filter: "brightness(3) contrast(1.1)" } : undefined}
           />
         </a>
 

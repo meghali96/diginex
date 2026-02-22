@@ -84,10 +84,11 @@ const Navbar = () => {
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <a
-            href="#contact"
+            href="/DigiNex_Brochure.pdf"
+            download
             className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold text-sm hover:bg-primary-deep transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5"
           >
-            Free Consultation
+            Download Brochure
           </a>
         </div>
 
@@ -126,11 +127,12 @@ const Navbar = () => {
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
               </button>
               <a
-                href="#contact"
+                href="/DigiNex_Brochure.pdf"
+                download
                 onClick={() => setMobileOpen(false)}
                 className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold text-sm"
               >
-                Free Consultation
+                Download Brochure
               </a>
             </div>
           </div>

@@ -142,13 +142,17 @@ const AboutSection = () => {
             </ScrollReveal>
             <ScrollReveal delay={350}>
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-card border border-border">
-                  <h4 className="font-display text-lg text-primary mb-1">Our Mission</h4>
-                  <p className="text-xs text-muted-foreground font-body">To serve every client with equal dedication, delivering strategies that create sustainable, long-term growth.</p>
+                <div className="group relative p-4 rounded-xl bg-[hsl(0_0%_8%)] border border-white/10 overflow-hidden transition-all duration-500 hover:border-primary/60 hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.3)]">
+                  <div className="absolute top-0 left-0 h-[2px] w-0 bg-primary group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" />
+                  <div className="absolute bottom-0 right-0 h-[2px] w-0 bg-primary group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] delay-100" />
+                  <h4 className="font-display text-lg text-white mb-1 transition-colors duration-500 group-hover:text-secondary">Our Mission</h4>
+                  <p className="text-xs font-body leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>To serve every client with equal dedication, delivering strategies that create sustainable, long-term growth.</p>
                 </div>
-                <div className="p-4 rounded-xl bg-card border border-border">
-                  <h4 className="font-display text-lg text-primary mb-1">Our Vision</h4>
-                  <p className="text-xs text-muted-foreground font-body">To become a trusted digital growth partner known for quality over quantity and impactful results.</p>
+                <div className="group relative p-4 rounded-xl bg-[hsl(0_0%_8%)] border border-white/10 overflow-hidden transition-all duration-500 hover:border-primary/60 hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.3)]">
+                  <div className="absolute top-0 left-0 h-[2px] w-0 bg-primary group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" />
+                  <div className="absolute bottom-0 right-0 h-[2px] w-0 bg-primary group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] delay-100" />
+                  <h4 className="font-display text-lg text-white mb-1 transition-colors duration-500 group-hover:text-secondary">Our Vision</h4>
+                  <p className="text-xs font-body leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>To become a trusted digital growth partner known for quality over quantity and impactful results.</p>
                 </div>
               </div>
             </ScrollReveal>

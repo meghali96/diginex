@@ -168,10 +168,10 @@ const AboutSection = () => {
           <ScrollReveal>
             <h3 className="text-3xl font-display text-center mb-10">Our Core Values</h3>
           </ScrollReveal>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-6 md:px-12 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-4 sm:px-6 md:px-12 relative z-10">
             {["Trust & Transparency", "Strategy with Creativity", "Client-First Thinking", "Long-Term Partnerships", "Team Support & Coordination", "Continuous Learning & Improvement"].map((v, i) => (
               <ScrollReveal key={v} delay={i * 80}>
-                <div className="flex items-center gap-3 p-5 rounded-xl bg-card border border-border hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+                <div className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
                   <div className="w-3 h-3 rounded-full bg-primary flex-shrink-0 shadow-lg shadow-primary/30" />
                   <span className="font-body text-sm font-medium">{v}</span>
                 </div>
@@ -204,7 +204,7 @@ const ServiceCard = ({ s }: { s: typeof services[0] | typeof additionalServices[
   const Icon = s.icon;
 
   return (
-    <div className="group relative h-[260px] cursor-default rounded-xl overflow-hidden bg-[hsl(0_0%_8%)] border border-white/10 p-6 flex flex-col justify-between transition-all duration-500 hover:border-primary/60 hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.3)]">
+    <div className="group relative min-h-[200px] md:h-[260px] cursor-default rounded-xl overflow-hidden bg-[hsl(0_0%_8%)] border border-white/10 p-6 flex flex-col justify-between transition-all duration-500 hover:border-primary/60 hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.3)]">
       {/* Animated top border line */}
       <div className="absolute top-0 left-0 h-[2px] w-0 bg-primary group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" />
       {/* Animated bottom border line */}
@@ -228,7 +228,7 @@ const ServicesSection = () => (
           <h2 className="text-4xl md:text-5xl font-display mt-2">Our Core Services</h2>
         </div>
       </ScrollReveal>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
         {services.map((s, i) => (
           <ScrollReveal key={s.num} delay={i * 100}>
             <ServiceCard s={s} />
@@ -236,7 +236,7 @@ const ServicesSection = () => (
         ))}
       </div>
       <ScrollReveal delay={200}>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {additionalServices.map((s) => (
             <ScrollReveal key={s.title}>
               <ServiceCard s={s} />
@@ -268,17 +268,17 @@ const DifferentSection = () => (
           <h2 className="text-4xl md:text-5xl font-display mt-2">What Makes Us Different</h2>
         </div>
       </ScrollReveal>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {differentiators.map((d, i) => (
           <ScrollReveal key={d.title} delay={i * 100}>
-            <div className="group relative rounded-xl overflow-hidden h-[240px] cursor-default">
+            <div className="group relative rounded-xl overflow-hidden h-[200px] md:h-[240px] cursor-default">
               <img src={d.img} alt={d.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
               <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.60)" }} />
-              <div className="absolute bottom-0 left-0 right-0 p-4 z-10 transition-opacity duration-300 group-hover:opacity-0">
+              <div className="absolute bottom-0 left-0 right-0 p-4 z-10 md:transition-opacity md:duration-300 md:group-hover:opacity-0">
                 <d.icon className="w-5 h-5 text-primary mb-1.5" />
                 <h3 className="font-display text-base text-white">{d.title}</h3>
               </div>
-              <div className="absolute inset-0 flex flex-col justify-end p-5 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
+              <div className="absolute inset-0 flex-col justify-end p-5 z-20 hidden md:flex translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
                 <div className="w-10 h-1 bg-primary mb-3" />
                 <d.icon className="w-5 h-5 text-primary mb-1.5" />
                 <h3 className="font-display text-base text-white mb-1.5">{d.title}</h3>
@@ -754,12 +754,12 @@ const Footer = () => {
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <img src={logoLight} alt="DigiNex Solutions" className="h-10 md:h-12 w-auto object-contain" />
-          <div className="flex gap-6 text-sm font-body text-muted-foreground">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm font-body text-muted-foreground">
             {navLinks.map((l) => (
               <a key={l.href} href={l.href} className="hover:text-primary transition-colors">{l.label}</a>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground font-body">© {new Date().getFullYear()} DigiNex Solutions. All rights reserved.</p>
+          <p className="text-xs text-muted-foreground font-body text-center">© {new Date().getFullYear()} DigiNex Solutions. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -725,14 +725,6 @@ const ContactSection = () => (
                 <p><span className="text-muted-foreground">Website:</span>{" "}<a href="https://diginexsolutionsofficial.in" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">diginexsolutionsofficial.in</a></p>
               </div>
             </div>
-            <div>
-              <h4 className="font-display text-lg mb-3">Our Locations</h4>
-              <div className="flex flex-wrap gap-2">
-                {["Vijayawada", "Hyderabad", "Bangalore", "Vizag", "Nandigama"].map((loc) => (
-                  <span key={loc} className="px-4 py-1.5 rounded-full bg-card border border-border text-sm font-body">{loc}</span>
-                ))}
-              </div>
-            </div>
           </div>
         </ScrollReveal>
         <ScrollReveal delay={150}>

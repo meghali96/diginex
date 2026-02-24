@@ -411,11 +411,11 @@ const roles: Role[] = [
 ];
 
 const badgeColors: Record<string, string> = {
-  Creative: "bg-purple-500/10 text-purple-500 border-purple-500/20",
-  Marketing: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+  Creative: "bg-primary/10 text-primary border-primary/20",
+  Marketing: "bg-primary/10 text-primary border-primary/20",
   Performance: "bg-primary/10 text-primary border-primary/20",
-  Content: "bg-green-500/10 text-green-500 border-green-500/20",
-  Technical: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
+  Content: "bg-primary/10 text-primary border-primary/20",
+  Technical: "bg-primary/10 text-primary border-primary/20",
 };
 
 interface ApplyModalProps {

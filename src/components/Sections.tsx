@@ -4,6 +4,7 @@ import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, X
 import { useTheme } from "./ThemeProvider";
 import logoLight from "@/assets/logo-light.png";
 import aboutTeam from "@/assets/about-team.jpg";
+import coreValuesBg from "@/assets/core-values-bg.jpg";
 import heroBanner from "@/assets/hero-banner.jpg";
 import heroBannerLight from "@/assets/hero-banner-light.jpg";
 
@@ -157,7 +158,7 @@ const AboutSection = () => {
         {/* Core Values — with background image */}
         <div className="relative mb-20 py-16 rounded-3xl overflow-hidden">
           {/* Background image */}
-          <img src={aboutTeam} alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
+          <img src={coreValuesBg} alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
           {/* Dark overlay with opacity */}
           <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.80)" }} />
           <ScrollReveal>

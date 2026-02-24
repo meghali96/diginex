@@ -53,7 +53,7 @@ const Navbar = () => {
           <img
             src={theme === "dark" ? logoDark : logoLight}
             alt="DigiNex Solutions"
-            className="h-7 md:h-8 lg:h-10 w-auto object-contain"
+            className="h-9 md:h-10 lg:h-12 w-auto object-contain"
           />
         </a>
 

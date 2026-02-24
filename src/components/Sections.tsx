@@ -191,35 +191,20 @@ const AboutSection = () => {
 
 /* ─── Services with flip cards ─────────────────────────────────────────── */
 
-const ServiceCard = ({ s, children }: { s: typeof services[0] | typeof additionalServices[0]; children?: React.ReactNode }) => {
-  const icon = s.icon;
-  const Icon = icon;
-  const num = "num" in s ? (s as typeof services[0]).num : undefined;
+const ServiceCard = ({ s }: { s: typeof services[0] | typeof additionalServices[0] }) => {
+  const Icon = s.icon;
 
   return (
-    <div className="group [perspective:1000px] h-[260px] cursor-default">
-      <div className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-        {/* Front */}
-        <div className="absolute inset-0 rounded-xl bg-card border border-border p-6 [backface-visibility:hidden] overflow-hidden">
-          {/* Animated border glow on all 4 sides */}
-          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-            style={{ boxShadow: "inset 0 0 0 2px hsl(27 76% 57%)" }} />
-          <div className="flex items-start gap-4">
-            {num && <span className="text-4xl font-display text-muted-foreground/30">{num}</span>}
-            <Icon className="w-8 h-8 text-primary mt-1 flex-shrink-0" />
-          </div>
-          <h3 className="font-display text-xl mt-4 mb-2">{s.title}</h3>
-          <p className="text-sm text-muted-foreground font-body line-clamp-3">{s.desc}</p>
-        </div>
+    <div className="group relative h-[260px] cursor-default rounded-xl overflow-hidden bg-[hsl(0_0%_8%)] border border-white/10 p-6 flex flex-col justify-between transition-all duration-500 hover:border-primary/60 hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.3)]">
+      {/* Animated top border line */}
+      <div className="absolute top-0 left-0 h-[2px] w-0 bg-primary group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" />
+      {/* Animated bottom border line */}
+      <div className="absolute bottom-0 right-0 h-[2px] w-0 bg-primary group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] delay-100" />
 
-        {/* Back */}
-        <div className="absolute inset-0 rounded-xl bg-primary p-6 [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col justify-center items-center text-center overflow-hidden">
-          {/* Animated border on all 4 sides */}
-          <div className="absolute inset-0 rounded-xl" style={{ boxShadow: "inset 0 0 0 3px hsl(20 55% 41%)" }} />
-          <Icon className="w-10 h-10 text-primary-foreground mb-4" />
-          <h3 className="font-display text-xl text-primary-foreground mb-2">{s.title}</h3>
-          <p className="text-sm text-primary-foreground/80 font-body">{s.desc}</p>
-        </div>
+      <div>
+        <Icon className="w-8 h-8 text-primary mb-4 transition-transform duration-500 group-hover:scale-110" />
+        <h3 className="font-display text-lg text-primary uppercase tracking-wide mb-2">{s.title}</h3>
+        <p className="text-sm font-body leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{s.desc}</p>
       </div>
     </div>
   );

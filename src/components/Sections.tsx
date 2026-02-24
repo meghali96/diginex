@@ -36,7 +36,7 @@ const additionalServices = [
 const HeroSection = () => {
   const { theme } = useTheme();
   return (
-  <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-16">
+  <section id="home" className="relative min-h-screen flex items-start md:items-center overflow-hidden pt-16">
     {/* Hero banner background */}
     <img src={theme === "dark" ? heroBanner : heroBannerLight} alt="" className="absolute inset-0 w-full h-full object-cover" />
     <div className="absolute inset-0 bg-background/80 dark:bg-background/70" />

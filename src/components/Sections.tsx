@@ -212,7 +212,7 @@ const ServiceCard = ({ s }: { s: typeof services[0] | typeof additionalServices[
 
       <div>
         <Icon className="w-8 h-8 text-primary mb-4 transition-all duration-500 group-hover:scale-110 group-hover:text-secondary" />
-        <h3 className="font-display text-lg text-white uppercase tracking-wide mb-2 transition-colors duration-500 group-hover:text-secondary">{s.title}</h3>
+        <h3 className="font-display text-lg text-white uppercase tracking-wide mb-2 transition-colors duration-500 group-hover:text-primary">{s.title}</h3>
         <p className="text-sm font-body leading-relaxed transition-colors duration-500" style={{ color: "rgba(255,255,255,0.6)" }}>{s.desc}</p>
       </div>
     </div>

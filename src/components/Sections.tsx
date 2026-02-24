@@ -49,7 +49,7 @@ const HeroSection = () => {
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <ScrollReveal>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display leading-[0.95] mb-6 mt-12 md:mt-16 lg:mt-20">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display leading-[0.95] mb-6 mt-4 md:mt-16 lg:mt-20">
               Next-Gen{" "}
               <span className="text-stroke-orange">Strategies</span>
               <br />

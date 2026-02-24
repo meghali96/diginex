@@ -154,8 +154,12 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Core Values — no logo background */}
-        <div className="relative mb-20 py-16 rounded-3xl bg-card border border-border overflow-hidden">
+        {/* Core Values — with background image */}
+        <div className="relative mb-20 py-16 rounded-3xl overflow-hidden">
+          {/* Background image */}
+          <img src={aboutTeam} alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
+          {/* Dark overlay with opacity */}
+          <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.80)" }} />
           <ScrollReveal>
             <h3 className="text-3xl font-display text-center mb-10">Our Core Values</h3>
           </ScrollReveal>
@@ -202,9 +206,9 @@ const ServiceCard = ({ s }: { s: typeof services[0] | typeof additionalServices[
       <div className="absolute bottom-0 right-0 h-[2px] w-0 bg-primary group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] delay-100" />
 
       <div>
-        <Icon className="w-8 h-8 text-primary mb-4 transition-transform duration-500 group-hover:scale-110" />
-        <h3 className="font-display text-lg text-primary uppercase tracking-wide mb-2 transition-colors duration-500 group-hover:text-white">{s.title}</h3>
-        <p className="text-sm font-body leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{s.desc}</p>
+        <Icon className="w-8 h-8 text-primary mb-4 transition-all duration-500 group-hover:scale-110 group-hover:text-secondary" />
+        <h3 className="font-display text-lg text-white uppercase tracking-wide mb-2 transition-colors duration-500 group-hover:text-secondary">{s.title}</h3>
+        <p className="text-sm font-body leading-relaxed transition-colors duration-500" style={{ color: "rgba(255,255,255,0.6)" }}>{s.desc}</p>
       </div>
     </div>
   );

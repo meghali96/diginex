@@ -39,15 +39,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetId = href.replace(/.*\#/, "");
-    const elem = document.getElementById(targetId);
-    if (elem) {
-      elem.scrollIntoView({ behavior: "smooth" });
-    }
-    setMobileOpen(false);
-  };
+
 
   useEffect(() => {
     const sections = navLinks.map((l) => document.querySelector(l.href));
@@ -89,8 +81,8 @@ const Navbar = () => {
               href={link.href}
               onClick={(e) => handleScroll(e, link.href)}
               className={`text-sm font-body font-medium transition-colors duration-300 hover:text-primary ${activeSection === link.href.slice(1)
-                  ? "text-primary"
-                  : "text-foreground/70"
+                ? "text-primary"
+                : "text-foreground/70"
                 }`}
             >
               {link.label}

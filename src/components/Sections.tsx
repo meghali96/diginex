@@ -187,7 +187,7 @@ const AboutSection = () => {
             <div className="overflow-hidden py-4">
               <div className="animate-marquee flex gap-4 w-max">
                 {["Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses", "Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses"].map((ind, i) => (
-                  <span key={`${ind}-${i}`} className="px-5 py-2 rounded-full border border-border bg-background/60 backdrop-blur-sm text-sm font-body whitespace-nowrap hover:border-primary hover:text-primary transition-colors">{ind}</span>
+                  <span key={`${ind}-${i}`} className="px-5 py-2 rounded-full border border-primary bg-background/60 backdrop-blur-sm text-sm font-body whitespace-nowrap text-primary transition-colors">{ind}</span>
                 ))}
               </div>
             </div>

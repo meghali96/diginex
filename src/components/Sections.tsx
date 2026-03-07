@@ -138,7 +138,7 @@ const AboutSection = () => {
             </ScrollReveal>
             <ScrollReveal delay={250}>
               <blockquote className="border-l-4 border-primary pl-4 italic text-foreground/80 font-body mb-8">
-                "We don't treat clients as accounts — we treat them as partners."
+                "We don't work as an external marketing agency — we work as your internal team."
               </blockquote>
             </ScrollReveal>
             <ScrollReveal delay={350}>

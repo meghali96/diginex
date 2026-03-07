@@ -3,6 +3,7 @@ import ScrollReveal from "./ScrollReveal";
 import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, X, Send, Briefcase, Upload } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import logoLight from "@/assets/logo-light.png";
+import logoNavbar from "@/assets/logo-black-new.png";
 import aboutTeam from "@/assets/about-team.jpg";
 import coreValuesBg from "@/assets/core-values-bg.jpg";
 import heroBanner from "@/assets/hero-banner.jpg";
@@ -753,7 +754,7 @@ const Footer = () => {
     <footer className="py-10 border-t border-border">
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <img src={logoLight} alt="DigiNex Solutions" className="h-10 md:h-12 w-auto object-contain" />
+          <img src={logoNavbar} alt="DigiNex Solutions" className="h-10 md:h-12 w-auto object-contain" />
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm font-body text-muted-foreground">
             {navLinks.map((l) => (
               <a key={l.href} href={l.href} className="hover:text-primary transition-colors">{l.label}</a>

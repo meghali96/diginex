@@ -3,6 +3,7 @@ import ScrollReveal from "./ScrollReveal";
 import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, X, Send, Briefcase, Upload } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import logoLight from "@/assets/logo-light.png";
+import logoNavbar from "@/assets/logo-black-new.png";
 import aboutTeam from "@/assets/about-team.jpg";
 import coreValuesBg from "@/assets/core-values-bg.jpg";
 import heroBanner from "@/assets/hero-banner.jpg";
@@ -137,7 +138,7 @@ const AboutSection = () => {
             </ScrollReveal>
             <ScrollReveal delay={250}>
               <blockquote className="border-l-4 border-primary pl-4 italic text-foreground/80 font-body mb-8">
-                "We don't treat clients as accounts — we treat them as partners."
+                "We don't work as an external marketing agency — we work as your internal team."
               </blockquote>
             </ScrollReveal>
             <ScrollReveal delay={350}>
@@ -187,7 +188,7 @@ const AboutSection = () => {
             <div className="overflow-hidden py-4">
               <div className="animate-marquee flex gap-4 w-max">
                 {["Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses", "Healthcare", "Real Estate", "Restaurants", "Education", "Fashion", "Personal Branding", "Business Consultancies", "Hotels", "Small Businesses"].map((ind, i) => (
-                  <span key={`${ind}-${i}`} className="px-5 py-2 rounded-full border border-border bg-background/60 backdrop-blur-sm text-sm font-body whitespace-nowrap hover:border-primary hover:text-primary transition-colors">{ind}</span>
+                  <span key={`${ind}-${i}`} className="px-5 py-2 rounded-full border border-primary bg-background/60 backdrop-blur-sm text-sm font-body whitespace-nowrap text-primary transition-colors">{ind}</span>
                 ))}
               </div>
             </div>
@@ -753,7 +754,7 @@ const Footer = () => {
     <footer className="py-10 border-t border-border">
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <img src={logoLight} alt="DigiNex Solutions" className="h-10 md:h-12 w-auto object-contain" />
+          <img src={logoNavbar} alt="DigiNex Solutions" className="h-10 md:h-12 w-auto object-contain" />
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm font-body text-muted-foreground">
             {navLinks.map((l) => (
               <a key={l.href} href={l.href} className="hover:text-primary transition-colors">{l.label}</a>

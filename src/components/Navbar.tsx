@@ -18,11 +18,28 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      const offset = 80; // approximate navbar height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+
 
   useEffect(() => {
     const sections = navLinks.map((l) => document.querySelector(l.href));
@@ -42,14 +59,13 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
-        scrolled ? "backdrop-blur-xl shadow-lg" : ""
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${scrolled ? "backdrop-blur-xl shadow-lg" : ""
+        }`}
       style={{ backgroundColor: scrolled ? `hsl(var(--nav-bg))` : "transparent" }}
     >
       <div className="container mx-auto px-4 md:px-8 flex items-center justify-between h-16 md:h-18 lg:h-20 py-1">
         {/* Logo */}
-        <a href="#home" className="flex-shrink-0">
+        <a href="#home" onClick={(e) => handleScroll(e, "#home")} className="flex-shrink-0">
           <img
             src={theme === "dark" ? logoDark : logoLight}
             alt="DigiNex Solutions"
@@ -63,11 +79,11 @@ const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              className={`text-sm font-body font-medium transition-colors duration-300 hover:text-primary ${
-                activeSection === link.href.slice(1)
-                  ? "text-primary"
-                  : "text-foreground/70"
-              }`}
+              onClick={(e) => handleScroll(e, link.href)}
+              className={`text-sm font-body font-medium transition-colors duration-300 hover:text-primary ${activeSection === link.href.slice(1)
+                ? "text-primary"
+                : "text-foreground/70"
+                }`}
             >
               {link.label}
             </a>
@@ -110,10 +126,12 @@ const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className={`text-lg font-body font-medium py-2 transition-colors ${
-                  activeSection === link.href.slice(1) ? "text-primary" : "text-foreground/70"
-                }`}
+                onClick={(e) => {
+                  setMobileOpen(false);
+                  handleScroll(e, link.href);
+                }}
+                className={`text-lg font-body font-medium py-2 transition-colors ${activeSection === link.href.slice(1) ? "text-primary" : "text-foreground/70"
+                  }`}
               >
                 {link.label}
               </a>

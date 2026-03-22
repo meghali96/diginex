@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = "919999999999"; // Replace with actual number (no + or spaces)
+const WHATSAPP_NUMBER = "919888959659";
 const WHATSAPP_MESSAGE = "Hello! I'd like to know more about DigiNex Solutions.";
 
 const WhatsAppButton = () => {

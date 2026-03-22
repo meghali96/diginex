@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import ScrollReveal from "./ScrollReveal";
-import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, X, Send, Briefcase, Upload } from "lucide-react";
+import { Megaphone, Palette, Target, Gem, Globe, User, Camera, Monitor, Users, X, Send, Briefcase, Link } from "lucide-react";
+import emailjs from "@emailjs/browser";
 import { useTheme } from "./ThemeProvider";
 import logoLight from "@/assets/logo-light.png";
 import logoNavbar from "@/assets/logo-black-new.png";
@@ -8,6 +9,7 @@ import aboutTeam from "@/assets/about-team.jpg";
 import coreValuesBg from "@/assets/core-values-bg.jpg";
 import heroBanner from "@/assets/hero-banner.jpg";
 import heroBannerLight from "@/assets/hero-banner-light.jpg";
+import brochurePdf from "@/assets/DigiNex Solutions Brochure.pdf";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -64,7 +66,7 @@ const HeroSection = () => {
           </ScrollReveal>
           <ScrollReveal delay={300}>
             <div className="flex flex-wrap gap-4 mb-10">
-              <a href="/DigiNex_Brochure.pdf" download className="px-7 py-3.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1">
+              <a href={brochurePdf} target="_blank" rel="noopener noreferrer" className="px-7 py-3.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1">
                 Download Brochure
               </a>
               <a href="#services" className="px-7 py-3.5 rounded-lg border-2 border-primary text-primary font-body font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:-translate-y-1">
@@ -429,9 +431,10 @@ interface ApplyModalProps {
 }
 
 const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", portfolio: "", message: "" });
-  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [form, setForm] = useState({ name: "", email: "", phone: "", portfolio: "", resume: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   if (!role) return null;
 
@@ -439,20 +442,31 @@ const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   };
 
-  const handleResumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setResumeFile(e.target.files[0]);
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Job Application — ${role.title}`);
-    const body = encodeURIComponent(
-      `Role: ${role.title}\n\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nPortfolio/LinkedIn: ${form.portfolio}\nResume: ${resumeFile ? resumeFile.name : "Not attached"}\n\nAbout Me:\n${form.message}`
-    );
-    window.open(`mailto:hiringdiginexsolutions@gmail.com?subject=${subject}&body=${body}`, "_blank");
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+
+    try {
+      await emailjs.send(
+        "service_lyluefo",
+        "template_fujiqpa",
+        {
+          name: form.name,
+          email: form.email,
+          phone: form.phone || "Not provided",
+          portfolio: form.portfolio || "Not provided",
+          resume: form.resume || "Not provided",
+          message: form.message,
+        },
+        "hO3csKq72sDI4L3se"
+      );
+      setSubmitted(true);
+    } catch {
+      setError("Failed to send application. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -484,7 +498,7 @@ const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
                 <Send className="w-7 h-7 text-primary" />
               </div>
               <h4 className="font-display text-2xl mb-2">Application Sent!</h4>
-              <p className="text-muted-foreground font-body text-sm">Your application for <strong>{role.title}</strong> has been prepared. We'll be in touch soon.</p>
+              <p className="text-muted-foreground font-body text-sm">Your application for <strong>{role.title}</strong> has been submitted successfully. We'll be in touch soon.</p>
               <button onClick={onClose} className="mt-6 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold text-sm hover:bg-primary-deep transition-colors">
                 Close
               </button>
@@ -541,16 +555,14 @@ const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
                   </div>
                 </div>
 
-                {/* Resume Upload */}
+                {/* Resume Drive Link */}
                 <div>
-                  <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Upload Resume</label>
-                  <label className="flex items-center gap-3 w-full px-4 py-3 rounded-lg bg-secondary border-2 border-dashed border-border hover:border-primary/50 cursor-pointer transition-all">
-                    <Upload className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="text-sm font-body text-muted-foreground truncate">
-                      {resumeFile ? resumeFile.name : "Click to upload your resume (PDF, DOC)"}
-                    </span>
-                    <input type="file" accept=".pdf,.doc,.docx" onChange={handleResumeChange} className="hidden" />
-                  </label>
+                  <label className="block text-xs font-body font-semibold mb-1.5 text-foreground/80">Resume (Google Drive Link) *</label>
+                  <div className="flex items-center gap-3 w-full px-4 py-2.5 rounded-lg bg-secondary border border-border focus-within:ring-2 focus-within:ring-primary/50 transition-all">
+                    <Link className="w-5 h-5 text-primary flex-shrink-0" />
+                    <input type="url" name="resume" required maxLength={500} value={form.resume} onChange={handleChange} placeholder="https://drive.google.com/file/d/..." className="w-full bg-transparent text-sm font-body focus:outline-none" />
+                  </div>
+                  <p className="text-xs text-muted-foreground font-body mt-1">Upload your resume to Google Drive and paste the shareable link here</p>
                 </div>
 
                 <div>
@@ -558,13 +570,15 @@ const ApplyModal = ({ role, onClose }: ApplyModalProps) => {
                   <textarea name="message" required maxLength={1000} rows={4} value={form.message} onChange={handleChange} placeholder="Why do you want to join DigiNex? Share your experience and what makes you a great fit..." className="w-full px-4 py-2.5 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none" />
                   <p className="text-xs text-muted-foreground font-body mt-1 text-right">{form.message.length}/1000</p>
                 </div>
-                <button type="submit" className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center gap-2">
+
+                {error && (
+                  <p className="text-sm text-red-500 font-body text-center bg-red-500/10 py-2 rounded-lg">{error}</p>
+                )}
+
+                <button type="submit" disabled={sending} className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
                   <Send className="w-4 h-4" />
-                  Submit Application
+                  {sending ? "Sending..." : "Submit Application"}
                 </button>
-                <p className="text-xs text-center text-muted-foreground font-body">
-                  This will open your email client pre-filled with your application details.
-                </p>
               </form>
             </>
           )}
@@ -642,7 +656,7 @@ const CareersSection = () => {
 
 /* ─── Multi Service Select ─────────────────────────────────────────────── */
 
-const MultiServiceSelect = ({ services }: { services: { num: string; title: string }[] }) => {
+const MultiServiceSelect = ({ services, onChange }: { services: { num: string; title: string }[]; onChange?: (selected: string[]) => void }) => {
   const [selected, setSelected] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -656,9 +670,11 @@ const MultiServiceSelect = ({ services }: { services: { num: string; title: stri
   }, []);
 
   const toggle = (title: string) => {
-    setSelected((prev) =>
-      prev.includes(title) ? prev.filter((s) => s !== title) : [...prev, title]
-    );
+    setSelected((prev) => {
+      const next = prev.includes(title) ? prev.filter((s) => s !== title) : [...prev, title];
+      onChange?.(next);
+      return next;
+    });
   };
 
   return (
@@ -705,9 +721,44 @@ const MultiServiceSelect = ({ services }: { services: { num: string; title: stri
   );
 };
 
-/* ─── Contact ──────────────────────────────────────────────────────────── */
+const ContactSection = () => {
+  const [form, setForm] = useState({ name: "", phone: "", business: "", message: "" });
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [sending, setSending] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-const ContactSection = () => (
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSending(true);
+    setError("");
+
+    try {
+      await emailjs.send(
+        "service_lyluefo",
+        "template_4l5dtei",
+        {
+          name: form.name,
+          phone: form.phone,
+          business: form.business || "Not provided",
+          services: selectedServices.length > 0 ? selectedServices.join(", ") : "Not selected",
+          message: form.message,
+        },
+        "hO3csKq72sDI4L3se"
+      );
+      setSubmitted(true);
+    } catch {
+      setError("Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return (
   <section id="contact" className="py-20 md:py-32">
     <div className="container mx-auto px-4 md:px-8">
       <ScrollReveal>
@@ -729,23 +780,37 @@ const ContactSection = () => (
           </div>
         </ScrollReveal>
         <ScrollReveal delay={150}>
-          <form className="space-y-4 p-6 md:p-8 rounded-2xl bg-card border border-border" onSubmit={(e) => e.preventDefault()}>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <input type="text" placeholder="Your Name" className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
-              <input type="tel" placeholder="Phone Number" className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
+          {submitted ? (
+            <div className="text-center py-16 p-6 md:p-8 rounded-2xl bg-card border border-border">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Send className="w-7 h-7 text-primary" />
+              </div>
+              <h4 className="font-display text-2xl mb-2">Message Sent!</h4>
+              <p className="text-muted-foreground font-body text-sm">Thank you for reaching out. We'll get back to you soon.</p>
             </div>
-            <input type="text" placeholder="Business Type" className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
-            <MultiServiceSelect services={services} />
-            <textarea placeholder="Your Message" rows={4} className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none" />
-            <button type="submit" className="w-full py-3.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-lg hover:shadow-primary/25">
-              Send Message
+          ) : (
+          <form className="space-y-4 p-6 md:p-8 rounded-2xl bg-card border border-border" onSubmit={handleSubmit}>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="Your Name" className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
+              <input type="tel" name="phone" required value={form.phone} onChange={handleChange} placeholder="Phone Number" className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
+            </div>
+            <input type="text" name="business" value={form.business} onChange={handleChange} placeholder="Business Type" className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
+            <MultiServiceSelect services={services} onChange={setSelectedServices} />
+            <textarea name="message" required value={form.message} onChange={handleChange} placeholder="Your Message" rows={4} className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none" />
+            {error && (
+              <p className="text-sm text-red-500 font-body text-center bg-red-500/10 py-2 rounded-lg">{error}</p>
+            )}
+            <button type="submit" disabled={sending} className="w-full py-3.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 disabled:opacity-60 disabled:cursor-not-allowed">
+              {sending ? "Sending..." : "Send Message"}
             </button>
           </form>
+          )}
         </ScrollReveal>
       </div>
     </div>
   </section>
-);
+  );
+};
 
 /* ─── Footer ───────────────────────────────────────────────────────────── */
 

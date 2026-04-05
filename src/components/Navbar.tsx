@@ -101,9 +101,8 @@ const Navbar = () => {
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <a
-            href={brochurePdf}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/DigiNex_Brochure.pdf"
+            download="DigiNex_Brochure.pdf"
             className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold text-sm hover:bg-primary-deep transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5"
           >
             Download Brochure

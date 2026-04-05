@@ -9,7 +9,7 @@ import aboutTeam from "@/assets/about-team.jpg";
 import coreValuesBg from "@/assets/core-values-bg.jpg";
 import heroBanner from "@/assets/hero-banner.jpg";
 import heroBannerLight from "@/assets/hero-banner-light.jpg";
-import brochurePdf from "@/assets/DigiNex Solutions Brochure.pdf";
+
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -66,7 +66,7 @@ const HeroSection = () => {
           </ScrollReveal>
           <ScrollReveal delay={300}>
             <div className="flex flex-wrap gap-4 mb-10">
-              <a href={brochurePdf} download="DigiNex_Brochure.pdf" className="px-7 py-3.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1">
+              <a href="/DigiNex_Brochure.pdf" download="DigiNex_Brochure.pdf" className="px-7 py-3.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold hover:bg-primary-deep transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1">
                 Download Brochure
               </a>
               <a href="#services" onClick={(e) => { e.preventDefault(); const el = document.getElementById('services'); if (el) { const offset = 80; window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' }); } }} className="px-7 py-3.5 rounded-lg border-2 border-primary text-primary font-body font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:-translate-y-1">

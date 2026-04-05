@@ -3,7 +3,7 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import logoDark from "@/assets/logo-black-new.png";
 import logoLight from "@/assets/logo-black-new.png";
-import brochurePdf from "@/assets/DigiNex Solutions Brochure.pdf";
+
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -101,9 +101,8 @@ const Navbar = () => {
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <a
-            href={brochurePdf}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/DigiNex_Brochure.pdf"
+            download="DigiNex_Brochure.pdf"
             className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold text-sm hover:bg-primary-deep transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5"
           >
             Download Brochure
@@ -147,9 +146,8 @@ const Navbar = () => {
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
               </button>
               <a
-                href={brochurePdf}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/DigiNex_Brochure.pdf"
+                download="DigiNex_Brochure.pdf"
                 onClick={() => setMobileOpen(false)}
                 className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-body font-semibold text-sm"
               >

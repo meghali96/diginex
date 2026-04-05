@@ -9,7 +9,7 @@ import aboutTeam from "@/assets/about-team.jpg";
 import coreValuesBg from "@/assets/core-values-bg.jpg";
 import heroBanner from "@/assets/hero-banner.jpg";
 import heroBannerLight from "@/assets/hero-banner-light.jpg";
-import brochurePdf from "@/assets/DigiNex Solutions Brochure.pdf";
+
 
 const navLinks = [
   { label: "Home", href: "#home" },

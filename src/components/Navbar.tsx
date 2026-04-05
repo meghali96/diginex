@@ -3,7 +3,7 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import logoDark from "@/assets/logo-black-new.png";
 import logoLight from "@/assets/logo-black-new.png";
-import brochurePdf from "@/assets/DigiNex Solutions Brochure.pdf";
+
 
 const navLinks = [
   { label: "Home", href: "#home" },

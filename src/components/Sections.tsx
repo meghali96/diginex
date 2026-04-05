@@ -277,11 +277,20 @@ const DifferentSection = () => (
             <div className="group relative rounded-xl overflow-hidden h-[200px] md:h-[240px] cursor-default">
               <img src={d.img} alt={d.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
               <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.60)" }} />
-              <div className="absolute bottom-0 left-0 right-0 p-4 z-10 md:transition-opacity md:duration-300 md:group-hover:opacity-0">
+              {/* Desktop: title visible, fades on hover */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 z-10 hidden md:block md:transition-opacity md:duration-300 md:group-hover:opacity-0">
                 <d.icon className="w-5 h-5 text-primary mb-1.5" />
                 <h3 className="font-display text-base text-white">{d.title}</h3>
               </div>
+              {/* Desktop: hover overlay slides up */}
               <div className="absolute inset-0 flex-col justify-end p-5 z-20 hidden md:flex translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
+                <div className="w-10 h-1 bg-primary mb-3" />
+                <d.icon className="w-5 h-5 text-primary mb-1.5" />
+                <h3 className="font-display text-base text-white mb-1.5">{d.title}</h3>
+                <p className="text-xs font-body" style={{ color: "rgba(255,255,255,0.75)" }}>{d.desc}</p>
+              </div>
+              {/* Mobile: always show overlay with description */}
+              <div className="absolute inset-0 flex flex-col justify-end p-5 z-20 md:hidden" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
                 <div className="w-10 h-1 bg-primary mb-3" />
                 <d.icon className="w-5 h-5 text-primary mb-1.5" />
                 <h3 className="font-display text-base text-white mb-1.5">{d.title}</h3>

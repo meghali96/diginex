@@ -262,7 +262,10 @@ const differentiators = [
   { title: "Strong Creative Planning", img: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600", desc: "Creative direction and content planning that stops the scroll and builds lasting brand identity.", icon: Palette },
 ];
 
-const DifferentSection = () => (
+const DifferentSection = () => {
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+
+  return (
   <section className="py-20 md:py-32">
     <div className="container mx-auto px-4 md:px-8">
       <ScrollReveal>
@@ -274,23 +277,22 @@ const DifferentSection = () => (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {differentiators.map((d, i) => (
           <ScrollReveal key={d.title} delay={i * 100}>
-            <div className="group relative rounded-xl overflow-hidden h-[200px] md:h-[240px] cursor-default">
+            <div
+              className="group relative rounded-xl overflow-hidden h-[200px] md:h-[240px] cursor-pointer md:cursor-default"
+              onClick={() => setActiveCard(activeCard === i ? null : i)}
+            >
               <img src={d.img} alt={d.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]" loading="lazy" />
               <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.60)" }} />
-              {/* Desktop only: title that fades on hover */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 z-10 hidden md:block transition-opacity duration-300 md:group-hover:opacity-0">
+              {/* Title: visible by default, fades on hover (desktop) or tap (mobile) */}
+              <div className={`absolute bottom-0 left-0 right-0 p-4 z-10 transition-opacity duration-300 md:group-hover:opacity-0 ${activeCard === i ? 'opacity-0' : 'opacity-100'}`}>
                 <d.icon className="w-5 h-5 text-primary mb-1.5" />
                 <h3 className="font-display text-base text-white">{d.title}</h3>
               </div>
-              {/* Desktop: hover overlay slides up */}
-              <div className="absolute inset-0 flex-col justify-end p-5 z-20 hidden md:flex translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
-                <div className="w-10 h-1 bg-primary mb-3" />
-                <d.icon className="w-5 h-5 text-primary mb-1.5" />
-                <h3 className="font-display text-base text-white mb-1.5">{d.title}</h3>
-                <p className="text-xs font-body" style={{ color: "rgba(255,255,255,0.75)" }}>{d.desc}</p>
-              </div>
-              {/* Mobile: always visible overlay */}
-              <div className="absolute inset-0 flex flex-col justify-end p-5 z-20 md:hidden" style={{ backgroundColor: "rgba(0,0,0,0.88)" }}>
+              {/* Overlay: slides up on hover (desktop) or tap (mobile) */}
+              <div
+                className={`absolute inset-0 flex flex-col justify-end p-5 z-20 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:translate-y-full md:group-hover:translate-y-0 ${activeCard === i ? 'translate-y-0' : 'translate-y-full'}`}
+                style={{ backgroundColor: "rgba(0,0,0,0.88)" }}
+              >
                 <div className="w-10 h-1 bg-primary mb-3" />
                 <d.icon className="w-5 h-5 text-primary mb-1.5" />
                 <h3 className="font-display text-base text-white mb-1.5">{d.title}</h3>
@@ -302,7 +304,8 @@ const DifferentSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 /* ─── Careers ──────────────────────────────────────────────────────────── */
 

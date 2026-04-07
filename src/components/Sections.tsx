@@ -834,7 +834,22 @@ const Footer = () => {
           <img src={logoNavbar} alt="DigiNex Solutions" className="h-10 md:h-12 w-auto object-contain" />
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm font-body text-muted-foreground">
             {navLinks.map((l) => (
-              <a key={l.href} href={l.href} className="hover:text-primary transition-colors">{l.label}</a>
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.querySelector(l.href);
+                  if (el) {
+                    const offset = 80;
+                    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: "smooth" });
+                  }
+                }}
+                className="hover:text-primary transition-colors"
+              >
+                {l.label}
+              </a>
             ))}
           </div>
           <p className="text-xs text-muted-foreground font-body text-center">© {new Date().getFullYear()} DigiNex Solutions. All rights reserved.</p>
